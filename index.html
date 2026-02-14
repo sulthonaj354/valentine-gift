@@ -13,20 +13,15 @@
     :root{
       --bgA:#070A10;
       --bgB:#0A1122;
-
       --glass: rgba(255,255,255,.075);
       --stroke: rgba(255,255,255,.14);
-
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.64);
       --muted2: rgba(255,255,255,.50);
-
       --accent1: rgba(255,125,190,.85);
       --accent2: rgba(120,190,255,.75);
-
       --shadow: 0 30px 80px rgba(0,0,0,.55);
       --radius: 22px;
-
       --ease: cubic-bezier(.22,1,.36,1);
     }
 
@@ -44,7 +39,7 @@
       overflow:hidden;
     }
 
-    /* Premium film grain */
+    /* Premium grain */
     .grain::before{
       content:"";
       position:fixed; inset:-40%;
@@ -63,31 +58,29 @@
       100%{transform:translate(-2%, -2%)}
     }
 
-    /* Subtle floating bokeh (no hearts, no “alay”) */
+    /* Subtle bokeh (no hearts) */
     .bokeh{
-      position:fixed; inset:0;
-      pointer-events:none;
-      opacity:.35;
-      filter: blur(0.2px);
+      position:fixed; inset:0; pointer-events:none;
+      opacity:.33;
     }
-    .bokeh span{
+    .bokeh i{
       position:absolute;
-      width: 10px; height: 10px;
+      width: 9px; height: 9px;
       border-radius:999px;
       background: rgba(255,255,255,.10);
       box-shadow: 0 0 22px rgba(255,255,255,.08);
-      animation: floatUp 14s linear infinite;
+      animation: floatUp 16s linear infinite;
     }
-    .bokeh span:nth-child(1){left:10%; top:95%; transform:scale(1.2); animation-duration: 16s}
-    .bokeh span:nth-child(2){left:24%; top:105%; transform:scale(.9); animation-duration: 18s}
-    .bokeh span:nth-child(3){left:42%; top:98%; transform:scale(1.6); animation-duration: 20s}
-    .bokeh span:nth-child(4){left:63%; top:102%; transform:scale(1.1); animation-duration: 17s}
-    .bokeh span:nth-child(5){left:78%; top:110%; transform:scale(.8); animation-duration: 19s}
-    .bokeh span:nth-child(6){left:90%; top:96%; transform:scale(1.3); animation-duration: 21s}
+    .bokeh i:nth-child(1){left:10%; top:110%; transform:scale(1.2); animation-duration: 18s}
+    .bokeh i:nth-child(2){left:26%; top:115%; transform:scale(.9); animation-duration: 20s}
+    .bokeh i:nth-child(3){left:44%; top:108%; transform:scale(1.6); animation-duration: 22s}
+    .bokeh i:nth-child(4){left:63%; top:112%; transform:scale(1.1); animation-duration: 19s}
+    .bokeh i:nth-child(5){left:78%; top:118%; transform:scale(.8); animation-duration: 21s}
+    .bokeh i:nth-child(6){left:90%; top:109%; transform:scale(1.3); animation-duration: 23s}
     @keyframes floatUp{
-      from{ transform: translateY(0) scale(var(--s,1)); opacity: 0; }
-      10%{opacity:.55}
-      to{ transform: translateY(-120vh) scale(var(--s,1)); opacity: 0; }
+      from{ transform: translateY(0); opacity: 0; }
+      12%{opacity:.55}
+      to{ transform: translateY(-130vh); opacity: 0; }
     }
 
     .wrap{
@@ -99,7 +92,7 @@
     }
 
     .card{
-      width:min(980px, 94vw);
+      width:min(1020px, 94vw);
       border-radius: var(--radius);
       background: var(--glass);
       border: 1px solid var(--stroke);
@@ -133,6 +126,7 @@
     }
 
     .controls{display:flex; gap:10px; align-items:center;}
+
     .btn{
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
@@ -149,23 +143,22 @@
     .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; }
 
     .content{
-      padding:18px 18px 18px 18px;
+      padding:18px;
       display:grid;
       gap:16px;
     }
 
-    /* Main layout */
     .grid{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
       gap:16px;
       align-items:start;
     }
-    @media (max-width: 900px){
+    @media (max-width: 920px){
       .grid{ grid-template-columns: 1fr; }
     }
 
-    /* Letter panel */
+    /* LETTER */
     .panel{
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.10);
@@ -185,29 +178,24 @@
       margin:0;
       font-family: "Playfair Display", serif;
       font-weight:600;
-      font-size: clamp(24px, 3.0vw, 38px);
-      line-height:1.12;
+      font-size: clamp(24px, 3.1vw, 40px);
+      line-height:1.10;
       letter-spacing:.2px;
     }
     .body{
       margin:12px 0 0 0;
       color: var(--muted);
-      font-size: 15.6px;
-      line-height:1.78;
+      font-size: 15.7px;
+      line-height:1.80;
       white-space:pre-line;
     }
 
-    /* Elegant page transition */
     .swap{
-      min-height: 220px;
+      min-height: 250px;
       position:relative;
     }
-    .in{
-      animation: in .62s var(--ease) both;
-    }
-    .out{
-      animation: out .34s var(--ease) both;
-    }
+    .in{ animation: in .70s var(--ease) both; }
+    .out{ animation: out .36s var(--ease) both; }
     @keyframes in{
       from{opacity:0; transform: translateY(10px); filter: blur(1px)}
       to{opacity:1; transform: translateY(0); filter: blur(0)}
@@ -237,38 +225,41 @@
       border-color: rgba(255,255,255,.22);
       transform: scale(1.18);
     }
-    .nav{display:flex; gap:10px;}
 
-    /* Photo area (more aesthetic) */
-    .photoArea{
-      display:grid;
-      gap:16px;
-    }
-
-    .hero{
-      position:relative;
-      overflow:hidden;
+    /* PHOTO STAGE (crossfade) */
+    .photoStage{
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 20px 45px rgba(0,0,0,.35);
-      min-height: 220px;
       background: rgba(255,255,255,.03);
+      overflow:hidden;
+      position:relative;
+      min-height: 360px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.35);
     }
-    .hero img{
-      width:100%;
-      height: min(320px, 40vh);
-      object-fit: cover;
-      display:block;
-      transform: scale(1.02);
-      filter: saturate(1.06) contrast(1.03);
-    }
-    .hero::after{
+    .photoStage::after{
       content:"";
       position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 38%, rgba(0,0,0,.62) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0) 36%, rgba(0,0,0,.62) 100%);
       pointer-events:none;
+      z-index:3;
     }
-    .heroMeta{
+
+    .layer{
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit: cover;
+      transform: scale(1.02);
+      filter: saturate(1.06) contrast(1.03);
+      opacity:0;
+      transition: opacity 1.15s var(--ease);
+      z-index:1;
+    }
+    .layer.show{
+      opacity:1;
+      z-index:2;
+    }
+
+    .photoMeta{
       position:absolute;
       left: 14px;
       bottom: 12px;
@@ -277,219 +268,65 @@
       justify-content:space-between;
       align-items:flex-end;
       gap:10px;
+      z-index:4;
     }
-    .heroTitle{
-      font-family: "Playfair Display", serif;
-      font-weight: 600;
+    .photoTitle{
+      margin:0;
+      font-family:"Playfair Display", serif;
+      font-weight:600;
       font-size: 18px;
       letter-spacing:.2px;
-      margin:0;
       color: rgba(255,255,255,.92);
-      text-shadow: 0 10px 30px rgba(0,0,0,.5);
+      text-shadow: 0 12px 28px rgba(0,0,0,.55);
     }
-    .heroSub{
+    .photoSub{
       font-size: 12px;
       color: rgba(255,255,255,.72);
       letter-spacing:.12px;
       white-space:nowrap;
     }
 
-    /* Polaroid stack */
-    .stack{
-      position:relative;
-      height: 240px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      overflow:hidden;
-      padding: 14px;
-    }
-    .polaroid{
-      position:absolute;
-      width: 62%;
-      max-width: 360px;
-      aspect-ratio: 4 / 5;
-      border-radius: 16px;
-      background: rgba(255,255,255,.92);
-      box-shadow: 0 18px 50px rgba(0,0,0,.35);
-      padding: 10px 10px 18px 10px;
-      cursor:pointer;
-      transition: transform .55s var(--ease), box-shadow .55s var(--ease);
-      transform-origin: 50% 70%;
-    }
-    .polaroid:hover{
-      transform: translateY(-4px) rotate(0deg) scale(1.02) !important;
-      box-shadow: 0 26px 65px rgba(0,0,0,.45);
-    }
-    .polaroid img{
-      width:100%;
-      height: calc(100% - 18px);
-      object-fit: cover;
-      border-radius: 12px;
-      display:block;
-      filter: saturate(1.05) contrast(1.02);
-    }
-    .polaroid .cap{
-      margin-top: 10px;
-      font-size: 12px;
-      letter-spacing:.18em;
-      text-transform: uppercase;
-      color: rgba(0,0,0,.55);
-      text-align:center;
-      font-family: Inter, system-ui, sans-serif;
-    }
-
-    /* Filmstrip */
+    /* MINI STRIP */
     .strip{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      padding: 12px;
-      overflow:hidden;
-    }
-    .stripTop{
-      display:flex; justify-content:space-between; align-items:center;
-      margin-bottom: 10px;
-    }
-    .stripTitle{
-      margin:0;
-      font-size: 12px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.55);
-    }
-    .stripHint{
-      margin:0;
-      font-size: 12px;
-      color: rgba(255,255,255,.45);
-    }
-    .film{
+      margin-top: 12px;
       display:flex;
       gap:10px;
       overflow:auto;
-      padding-bottom: 6px;
-      scroll-snap-type: x mandatory;
+      padding: 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
     }
-    .film::-webkit-scrollbar{ height: 8px; }
-    .film::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.12); border-radius: 999px; }
+    .strip::-webkit-scrollbar{ height: 8px; }
+    .strip::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.12); border-radius: 999px; }
+
     .thumb{
       flex: 0 0 auto;
-      width: 120px;
-      height: 88px;
+      width: 128px;
+      height: 86px;
       border-radius: 14px;
       overflow:hidden;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
-      scroll-snap-align: start;
       cursor:pointer;
       transition: transform .22s var(--ease);
     }
     .thumb:hover{ transform: translateY(-2px); }
     .thumb img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-      filter: saturate(1.04) contrast(1.02);
-      transform: scale(1.02);
-    }
-
-    /* Full gallery grid */
-    .galleryWrap{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      padding: 14px;
-    }
-    .galleryTitle{
-      margin: 0 0 12px 0;
-      font-size: 12px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.55);
-    }
-    .gallery{
-      display:grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap:10px;
-    }
-    @media (max-width: 900px){ .gallery{ grid-template-columns: repeat(3, 1fr);} }
-    .cell{
-      border-radius: 14px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      cursor:pointer;
-      transition: transform .22s var(--ease);
-      min-height: 74px;
-    }
-    .cell:hover{ transform: translateY(-2px); }
-    .cell img{
-      width:100%;
-      height: 92px;
+      width:100%; height:100%;
       object-fit: cover;
       display:block;
       transform: scale(1.02);
       filter: saturate(1.04) contrast(1.02);
     }
 
-    /* Lightbox */
-    .lightbox{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,.70);
-      display:none;
-      place-items:center;
-      padding: 20px;
-      z-index: 80;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .lightbox.show{ display:grid; }
-    .lightboxInner{
-      width:min(980px, 92vw);
-      border-radius: 22px;
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(20,22,30,.55);
-      box-shadow: 0 30px 90px rgba(0,0,0,.65);
-      position:relative;
-    }
-    .lightboxInner img{
-      width:100%;
-      height: min(80vh, 760px);
-      object-fit: contain;
-      display:block;
-      background: rgba(0,0,0,.35);
-    }
-    .lbTop{
-      position:absolute; top: 12px; right: 12px; left: 12px;
-      display:flex; justify-content:space-between; align-items:center; gap:10px;
-      pointer-events:none;
-    }
-    .lbTag{
-      pointer-events:none;
-      font-size: 12px;
-      letter-spacing:.18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.60);
-      background: rgba(0,0,0,.28);
-      border: 1px solid rgba(255,255,255,.14);
-      padding: 10px 12px;
-      border-radius: 999px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .lbClose{
-      pointer-events:auto;
-    }
-
-    /* Cover overlay */
+    /* COVER OVERLAY */
     .cover{
       position:fixed; inset:0;
       display:grid;
       place-items:center;
       padding:24px;
-      z-index: 100;
+      z-index:100;
       background:
         radial-gradient(900px 600px at 50% 30%, rgba(255,255,255,.08), transparent 65%),
         linear-gradient(180deg, rgba(5,7,12,.92), rgba(5,7,12,.72));
@@ -497,22 +334,22 @@
       -webkit-backdrop-filter: blur(10px);
     }
     .coverCard{
-      width:min(760px, 94vw);
+      width:min(780px, 94vw);
       border-radius: 28px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
-      box-shadow: 0 30px 100px rgba(0,0,0,.70);
+      box-shadow: 0 30px 110px rgba(0,0,0,.72);
       overflow:hidden;
       position:relative;
     }
     .coverHero{
       position:relative;
-      min-height: 280px;
+      min-height: 300px;
       background: rgba(255,255,255,.03);
     }
     .coverHero img{
       width:100%;
-      height: 300px;
+      height: 320px;
       object-fit: cover;
       display:block;
       transform: scale(1.02);
@@ -539,7 +376,7 @@
       margin:0;
       font-family:"Playfair Display", serif;
       font-weight:600;
-      font-size: clamp(28px, 3.4vw, 44px);
+      font-size: clamp(28px, 3.4vw, 46px);
       line-height:1.06;
       color: rgba(255,255,255,.94);
     }
@@ -553,10 +390,10 @@
     .coverNote{
       color: rgba(255,255,255,.70);
       font-size: 13px;
-      line-height:1.65;
+      line-height:1.70;
     }
 
-    .fadeIn{ animation: fadeIn .55s var(--ease) both; }
+    .fadeIn{ animation: fadeIn .60s var(--ease) both; }
     @keyframes fadeIn{ from{opacity:0; transform: translateY(10px)} to{opacity:1; transform: translateY(0)} }
     .fadeOut{ animation: fadeOut .30s var(--ease) both; }
     @keyframes fadeOut{ from{opacity:1} to{opacity:0; transform: translateY(6px)} }
@@ -564,115 +401,85 @@
     @media (prefers-reduced-motion: reduce){
       .grain::before{animation:none}
       .btn{transition:none}
-      .fadeIn,.fadeOut,.in,.out{animation:none}
-      .thumb,.cell,.polaroid{transition:none}
-      .bokeh span{animation:none}
-    }
-
-    /* If no gallery found: subtle note */
-    .tinyNote{
-      margin: 10px 0 0 0;
-      color: rgba(255,255,255,.46);
-      font-size: 12px;
-      line-height:1.6;
+      .in,.out,.fadeIn,.fadeOut{animation:none}
+      .layer{transition:none}
+      .thumb{transition:none}
+      .bokeh i{animation:none}
     }
   </style>
 </head>
 
 <body class="grain">
-  <div class="bokeh" aria-hidden="true">
-    <span></span><span></span><span></span><span></span><span></span><span></span>
-  </div>
+  <div class="bokeh" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <!-- background music -->
+  <audio id="bgm" preload="auto" loop src="music.mp3"></audio>
 
   <div class="wrap">
-    <div class="card" role="group" aria-label="Kado digital">
+    <div class="card">
       <div class="topbar">
         <div class="brand">
           <span class="dot"></span>
           <span id="brandText">for annisa</span>
         </div>
-
         <div class="controls">
-          <button class="btn" id="muteBtn" aria-pressed="false" title="Mute / Unmute" style="display:none;">Mute</button>
+          <button class="btn" id="pauseBtn" style="display:none;">Pause</button>
+          <button class="btn" id="muteBtn" style="display:none;" aria-pressed="false">Mute</button>
         </div>
       </div>
 
       <div class="content">
         <div class="grid">
-          <!-- LEFT: LETTER -->
+          <!-- LETTER -->
           <div class="panel">
             <p class="kicker" id="kicker">valentine</p>
 
             <div class="swap" id="swapBox">
               <h1 id="title" class="in"></h1>
               <p id="body" class="body in"></p>
-              <p class="tinyNote" id="galleryNote" style="display:none;"></p>
             </div>
 
             <div class="footer">
               <div class="pager" id="pager"></div>
-              <div class="nav">
+              <div style="display:flex; gap:10px;">
                 <button class="btn" id="prevBtn">Back</button>
                 <button class="btn" id="nextBtn">Next</button>
               </div>
             </div>
           </div>
 
-          <!-- RIGHT: PHOTOS -->
-          <div class="photoArea">
-            <div class="hero fadeIn" id="heroBox">
-              <img id="heroImg" src="" alt="Cover" />
-              <div class="heroMeta">
-                <p class="heroTitle" id="heroTitle">Annisa Rahmasari</p>
-                <div class="heroSub" id="heroSub">from Uni From Bandung</div>
+          <!-- PHOTO -->
+          <div>
+            <div class="photoStage" id="stage">
+              <img id="imgA" class="layer show" alt="photo A">
+              <img id="imgB" class="layer" alt="photo B">
+              <div class="photoMeta">
+                <p class="photoTitle" id="photoTitle">Annisa Rahmasari</p>
+                <div class="photoSub" id="photoSub">from Uni From Bandung</div>
               </div>
             </div>
 
-            <div class="stack" id="stackBox" aria-label="Photo stack"></div>
-
-            <div class="strip" id="stripBox" style="display:none;">
-              <div class="stripTop">
-                <p class="stripTitle">moments</p>
-                <p class="stripHint">tap photo</p>
-              </div>
-              <div class="film" id="film"></div>
-            </div>
+            <div class="strip" id="strip"></div>
           </div>
         </div>
-
-        <!-- FULL GALLERY GRID -->
-        <div class="galleryWrap" id="galleryWrap" style="display:none;">
-          <p class="galleryTitle">gallery</p>
-          <div class="gallery" id="gallery"></div>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <div class="lightboxInner">
-      <div class="lbTop">
-        <div class="lbTag">Annisa × Uni</div>
-        <button class="btn lbClose" id="lightboxClose">Close</button>
-      </div>
-      <img id="lightboxImg" src="" alt="Foto" />
-    </div>
-  </div>
-
-  <!-- Cover -->
+  <!-- Cover overlay -->
   <div class="cover" id="cover">
     <div class="coverCard fadeIn">
-      <div class="coverHero" id="coverHero">
-        <img id="coverImg" src="" alt="Cover" />
+      <div class="coverHero">
+        <img src="cover.JPG" alt="Cover">
         <div class="coverText">
-          <p class="coverKicker" id="coverKicker">valentine note</p>
-          <h2 class="coverTitle" id="coverTitle">For Annisa Rahmasari.</h2>
+          <p class="coverKicker">valentine note</p>
+          <h2 class="coverTitle">For Annisa Rahmasari.</h2>
         </div>
       </div>
       <div class="coverBottom">
-        <div class="coverNote" id="coverNote">
-          Hal kecil, tapi tulus.<br/>Tap “Open” — audio akan mulai otomatis.
+        <div class="coverNote">
+          Hal kecil, tapi tulus.<br>
+          Tap “Open” — musik & slideshow akan mulai otomatis.
         </div>
         <button class="btn" id="openBtn">Open</button>
       </div>
@@ -680,504 +487,277 @@
   </div>
 
   <script>
-    // =========================
-    // FIXED NAMES (as requested)
-    // =========================
-    const CONFIG = {
-      recipient: "Annisa Rahmasari",
-      sender: "Uni From Bandung",
-      dateText: "14 February",
-      heroImage: "assets/cover.jpg",
+    // ===== Fixed names (as you asked)
+    const RECIPIENT = "Annisa Rahmasari";
+    const SENDER    = "Uni From Bandung";
 
-      // You can still manually list if you want, but auto-detect will work even if empty:
-      galleryImages: [
-        // "assets/1.jpg",
-        // "assets/2.jpg",
-      ],
+    // ===== Your assets (ROOT folder, exactly like your repo)
+    // NOTE: GitHub Pages is case-sensitive → keep the exact file names below.
+    const PHOTOS = ["cover.JPG", "1.JPG", "2.JPG", "3.JPG"];
+    const MUSIC  = "music.mp3";
 
-      pages: [
-        {
-          kicker: "valentine",
-          title: c => `${c.recipient},`,
-          body:
+    // ===== Auto-play timings (smooth, not rushed)
+    const PHOTO_INTERVAL_MS = 6500;  // 6.5s per photo
+    const TEXT_INTERVAL_MS  = 9000;  // 9s per page
+
+    const PAGES = [
+      {
+        kicker: "valentine",
+        title: `${RECIPIENT},`,
+        body:
 `Aku bikin halaman kecil ini buat kamu.
 Bukan supaya heboh—tapi supaya kamu tahu:
-aku ada, aku lihat usahamu, dan aku bangga.`
-        },
-        {
-          kicker: "new chapter",
-          title: () => `Tentang seminar proposal.`,
-          body:
+aku lihat usahamu, dan aku bangga.`
+      },
+      {
+        kicker: "new chapter",
+        title: "Tentang seminar proposal.",
+        body:
 `Selamat ya.
 Itu bukan sekadar presentasi—itu tanda kamu berani mulai.
 
 Kalau besok ada revisi, capek, atau pikiran ramai:
 kamu tetap orang yang sama—yang konsisten jalan pelan-pelan tapi pasti.`
-        },
-        {
-          kicker: "steady",
-          title: () => `Keep going.`,
-          body:
+      },
+      {
+        kicker: "steady",
+        title: "Keep going.",
+        body:
 `Langkah awal itu sering terasa sunyi.
 Tapi justru di situ kamu sedang membangun sesuatu yang besar—diam-diam, rapi, dan matang.
 
 Aku akan tetap jadi tempat pulang yang tenang.
 Tanpa tekanan. Tanpa drama.`
-        },
-        {
-          kicker: "us",
-          title: () => `Kita jaga yang sederhana.`,
-          body:
+      },
+      {
+        kicker: "us",
+        title: "Kita jaga yang sederhana.",
+        body:
 `Kita sudah jalan jauh dengan cara kita sendiri.
 Dan aku ingin ruang ini tetap bersih: jujur, jelas, dan saling pilih.
 
-Bukan karena posesif—tapi karena komitmen itu dirawat.
-Lewat batas yang sehat, komunikasi yang rapi, dan rasa saling hormat.`
-        },
-        {
-          kicker: "always",
-          title: () => `Terima kasih, ya.`,
-          body: c =>
+Bukan karena posesif—tapi karena komitmen itu dirawat:
+batas yang sehat, komunikasi yang rapi, dan saling hormat.`
+      },
+      {
+        kicker: "always",
+        title: "Terima kasih, ya.",
+        body:
 `Terima kasih sudah bertahan, bertumbuh, dan tetap baik.
 Aku sayang kamu—dengan cara yang tenang.
 
-— ${c.sender}`
-        }
-      ],
-    };
+— ${SENDER}`
+      },
+    ];
 
-    // =========================
-    // ELEMENTS
-    // =========================
+    // ===== Elements
     const $ = (id) => document.getElementById(id);
 
     const brandText = $("brandText");
-    const muteBtn = $("muteBtn");
+    const kickerEl  = $("kicker");
+    const titleEl   = $("title");
+    const bodyEl    = $("body");
+    const pagerEl   = $("pager");
 
-    const heroBox = $("heroBox");
-    const heroImg = $("heroImg");
-    const heroTitle = $("heroTitle");
-    const heroSub = $("heroSub");
+    const prevBtn   = $("prevBtn");
+    const nextBtn   = $("nextBtn");
 
-    const kickerEl = $("kicker");
-    const titleEl  = $("title");
-    const bodyEl   = $("body");
-    const swapBox  = $("swapBox");
+    const imgA      = $("imgA");
+    const imgB      = $("imgB");
+    const photoTitle= $("photoTitle");
+    const photoSub  = $("photoSub");
+    const strip     = $("strip");
 
-    const pagerEl = $("pager");
-    const prevBtn = $("prevBtn");
-    const nextBtn = $("nextBtn");
+    const cover     = $("cover");
+    const openBtn   = $("openBtn");
 
-    const stackBox = $("stackBox");
-    const stripBox = $("stripBox");
-    const filmEl = $("film");
+    const bgm       = $("bgm");
+    const muteBtn   = $("muteBtn");
+    const pauseBtn  = $("pauseBtn");
 
-    const galleryWrap = $("galleryWrap");
-    const galleryEl = $("gallery");
+    // ===== State
+    let pageIndex = 0;
+    let photoIndex = 0;
+    let showingA = true;
 
-    const lightbox = $("lightbox");
-    const lightboxImg = $("lightboxImg");
-    const lightboxClose = $("lightboxClose");
+    let photoTimer = null;
+    let textTimer  = null;
+    let isPaused = false;
+    let isMuted  = false;
 
-    const cover = $("cover");
-    const openBtn = $("openBtn");
-    const coverImg = $("coverImg");
+    // ===== UI init
+    brandText.textContent = `for ${RECIPIENT.toLowerCase()}`;
+    photoTitle.textContent = RECIPIENT;
+    photoSub.textContent   = `from ${SENDER}`;
+    bgm.src = MUSIC;
 
-    const galleryNote = $("galleryNote");
-
-    let idx = 0;
-    let resolvedCover = null;
-    let discoveredGallery = [];
-
-    function safeText(v){ return (typeof v === "function") ? v(CONFIG) : v; }
-
-    // =========================
-    // IMAGE LOADING + AUTO DISCOVER
-    // =========================
-    async function tryLoad(src){
-      return new Promise((resolve) => {
-        const im = new Image();
-        im.onload = () => resolve(src);
-        im.onerror = () => resolve(null);
-        im.src = src;
-      });
-    }
-
-    async function resolveCoverImage(){
-      const base = CONFIG.heroImage || "assets/cover.jpg";
-      const candidates = [
-        base, "./"+base,
-        "assets/cover.jpg","./assets/cover.jpg",
-        "assets/cover.jpeg","./assets/cover.jpeg",
-        "assets/cover.png","./assets/cover.png",
-        "assets/cover.webp","./assets/cover.webp",
-        "assets/cover.JPG","./assets/cover.JPG",
-        "assets/Cover.jpg","./assets/Cover.jpg",
-        "assets/Cover.JPG","./assets/Cover.JPG",
-        "cover.jpg","./cover.jpg",
-        "cover.jpeg","./cover.jpeg",
-        "cover.png","./cover.png",
-        "cover.webp","./cover.webp",
-      ];
-      for(const c of candidates){
-        const ok = await tryLoad(c);
-        if(ok) return ok;
-      }
-      return null;
-    }
-
-    async function discoverGalleryImages(){
-      // Start with any manual list
-      const manual = (CONFIG.galleryImages || []).filter(Boolean);
-
-      // Auto candidates: assets/1..20 with common extensions & casing
-      const bases = [];
-      for(let i=1;i<=20;i++){
-        bases.push(String(i));
-        if(i<10) bases.push("0"+i);
-      }
-      const exts = ["jpg","jpeg","png","webp","JPG","JPEG","PNG","WEBP"];
-
-      const found = [];
-      const seen = new Set();
-
-      // Include manual first
-      for(const m of manual){
-        if(!seen.has(m)){
-          const ok = await tryLoad(m);
-          if(ok){ found.push(ok); seen.add(ok); }
-        }
-      }
-
-      for(const b of bases){
-        for(const e of exts){
-          const p = `assets/${b}.${e}`;
-          if(seen.has(p)) continue;
-          const ok = await tryLoad(p);
-          if(ok){
-            found.push(ok);
-            seen.add(ok);
-            break; // move to next base number
-          }
-        }
-      }
-
-      return found;
-    }
-
-    // =========================
-    // LIGHTBOX
-    // =========================
-    function openLightbox(src){
-      lightboxImg.src = src;
-      lightbox.classList.add("show");
-      lightbox.setAttribute("aria-hidden","false");
-    }
-    function closeLightbox(){
-      lightbox.classList.remove("show");
-      lightbox.setAttribute("aria-hidden","true");
-      lightboxImg.src = "";
-    }
-    lightbox.addEventListener("click", (e) => { if(e.target === lightbox) closeLightbox(); });
-    lightboxClose.addEventListener("click", closeLightbox);
-    window.addEventListener("keydown", (e) => { if(e.key === "Escape") closeLightbox(); });
-
-    // =========================
-    // LETTER RENDER + TRANSITION
-    // =========================
     function renderPager(){
       pagerEl.innerHTML = "";
-      for(let i=0;i<CONFIG.pages.length;i++){
+      for(let i=0;i<PAGES.length;i++){
         const d = document.createElement("div");
-        d.className = "pill" + (i===idx ? " active" : "");
+        d.className = "pill" + (i===pageIndex ? " active" : "");
         pagerEl.appendChild(d);
       }
     }
 
-    function setSwapOut(){
-      titleEl.classList.remove("in");
-      bodyEl.classList.remove("in");
-      titleEl.classList.add("out");
-      bodyEl.classList.add("out");
-    }
-
-    function setSwapIn(){
-      titleEl.classList.remove("out");
-      bodyEl.classList.remove("out");
-      void swapBox.offsetWidth; // reflow
-      titleEl.classList.add("in");
-      bodyEl.classList.add("in");
-    }
-
-    function applyPage(i){
-      const page = CONFIG.pages[i];
-      kickerEl.textContent = safeText(page.kicker || "");
-      titleEl.textContent  = safeText(page.title);
-      bodyEl.textContent   = safeText(page.body);
-
-      prevBtn.disabled = i === 0;
-      nextBtn.textContent = (i === CONFIG.pages.length - 1) ? "Finish" : "Next";
+    function setText(i){
+      const p = PAGES[i];
+      kickerEl.textContent = p.kicker || "";
+      titleEl.textContent  = p.title || "";
+      bodyEl.textContent   = p.body  || "";
       renderPager();
+      prevBtn.disabled = (i===0);
+      nextBtn.textContent = (i===PAGES.length-1) ? "Finish" : "Next";
 
-      // Photo mood: rotate top polaroid on each page (subtle)
-      rotateTopPolaroid();
-    }
-
-    function goTo(nextIndex){
-      setSwapOut();
+      // animate
+      titleEl.classList.remove("in"); bodyEl.classList.remove("in");
+      titleEl.classList.add("out");   bodyEl.classList.add("out");
       setTimeout(() => {
-        idx = nextIndex;
-        applyPage(idx);
-        setSwapIn();
+        titleEl.classList.remove("out"); bodyEl.classList.remove("out");
+        void titleEl.offsetWidth;
+        titleEl.classList.add("in"); bodyEl.classList.add("in");
       }, 220);
     }
 
-    prevBtn.addEventListener("click", () => { if(idx>0) goTo(idx-1); });
-    nextBtn.addEventListener("click", () => {
-      if(idx < CONFIG.pages.length-1) goTo(idx+1);
-      else goTo(0);
-    });
-
-    // =========================
-    // PHOTO LAYOUT (stack + filmstrip + grid)
-    // =========================
-    function createPolaroid(src, cap, style){
-      const p = document.createElement("div");
-      p.className = "polaroid";
-      p.style.cssText = style;
-
-      const im = document.createElement("img");
-      im.src = src;
-      im.alt = cap || "Moment";
-      p.appendChild(im);
-
-      const c = document.createElement("div");
-      c.className = "cap";
-      c.textContent = cap || "moment";
-      p.appendChild(c);
-
-      p.addEventListener("click", () => openLightbox(src));
-      return p;
+    function nextText(){
+      pageIndex = (pageIndex + 1) % PAGES.length;
+      setText(pageIndex);
     }
 
-    function renderStack(){
-      stackBox.innerHTML = "";
-
-      const list = [resolvedCover, ...discoveredGallery].filter(Boolean);
-
-      // pick up to 3 for the stack (cover + 2 moments)
-      const a = list[0] || resolvedCover;
-      const b = list[1] || list[0] || resolvedCover;
-      const c = list[2] || list[1] || list[0] || resolvedCover;
-
-      const styles = [
-        "left:10%; top:18px; transform: rotate(-4deg); z-index:1;",
-        "left:30%; top:28px; transform: rotate(3deg); z-index:2;",
-        "left:18%; top:44px; transform: rotate(-1deg); z-index:3;",
-      ];
-
-      const p1 = createPolaroid(a, "annisa", styles[0]);
-      const p2 = createPolaroid(b, "us", styles[1]);
-      const p3 = createPolaroid(c, "valentine", styles[2]);
-
-      stackBox.appendChild(p1);
-      stackBox.appendChild(p2);
-      stackBox.appendChild(p3);
+    function prevText(){
+      pageIndex = Math.max(0, pageIndex - 1);
+      setText(pageIndex);
     }
 
-    function rotateTopPolaroid(){
-      const items = stackBox.querySelectorAll(".polaroid");
-      if(!items.length) return;
-      // only nudge the top one a bit (very subtle)
-      const top = items[items.length - 1];
-      const base = top.style.transform || "rotate(-1deg)";
-      // random nudge -1.2..1.2 deg
-      const deg = (Math.random()*2.4 - 1.2).toFixed(2);
-      top.style.transform = `rotate(${deg}deg)`;
-    }
-
-    function renderFilmstrip(){
-      const imgs = discoveredGallery.slice(0, 14); // keep it clean
-      if(!imgs.length){
-        stripBox.style.display = "none";
-        return;
+    function goText(){
+      if(pageIndex === PAGES.length - 1){
+        pageIndex = 0;
+      } else {
+        pageIndex++;
       }
-      stripBox.style.display = "block";
-      filmEl.innerHTML = "";
-      imgs.forEach((src) => {
+      setText(pageIndex);
+    }
+
+    // Crossfade photo
+    function setPhoto(src){
+      const show = showingA ? imgB : imgA;
+      const hide = showingA ? imgA : imgB;
+
+      show.src = src;
+      show.onload = () => {
+        show.classList.add("show");
+        hide.classList.remove("show");
+        showingA = !showingA;
+      };
+    }
+
+    function nextPhoto(){
+      photoIndex = (photoIndex + 1) % PHOTOS.length;
+      setPhoto(PHOTOS[photoIndex]);
+    }
+
+    // Strip thumbnails
+    function renderStrip(){
+      strip.innerHTML = "";
+      PHOTOS.forEach((src, idx) => {
         const t = document.createElement("div");
         t.className = "thumb";
         const im = document.createElement("img");
         im.src = src;
-        im.alt = "Moment";
+        im.alt = "thumb";
         t.appendChild(im);
-        t.addEventListener("click", () => openLightbox(src));
-        filmEl.appendChild(t);
+        t.addEventListener("click", () => {
+          photoIndex = idx;
+          setPhoto(PHOTOS[photoIndex]);
+        });
+        strip.appendChild(t);
       });
     }
 
-    function renderGrid(){
-      const imgs = discoveredGallery.slice(0, 24);
-      if(!imgs.length){
-        galleryWrap.style.display = "none";
-        return;
-      }
-      galleryWrap.style.display = "block";
-      galleryEl.innerHTML = "";
-      imgs.forEach((src) => {
-        const cell = document.createElement("div");
-        cell.className = "cell";
-        const im = document.createElement("img");
-        im.src = src;
-        im.alt = "Moment";
-        cell.appendChild(im);
-        cell.addEventListener("click", () => openLightbox(src));
-        galleryEl.appendChild(cell);
-      });
+    // Autoplay loop
+    function startAuto(){
+      stopAuto();
+      photoTimer = setInterval(() => { if(!isPaused) nextPhoto(); }, PHOTO_INTERVAL_MS);
+      textTimer  = setInterval(() => { if(!isPaused) nextText();  }, TEXT_INTERVAL_MS);
+    }
+    function stopAuto(){
+      if(photoTimer) clearInterval(photoTimer);
+      if(textTimer) clearInterval(textTimer);
+      photoTimer = null; textTimer = null;
     }
 
-    // =========================
-    // AUDIO (auto starts after "Open")
-    // =========================
-    let audioCtx = null, master = null;
-    let muted = false;
-
-    function startAmbience(){
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-      master = audioCtx.createGain();
-      master.gain.value = 0.0;
-
-      const lp = audioCtx.createBiquadFilter();
-      lp.type = "lowpass";
-      lp.frequency.value = 950;
-
-      master.connect(lp);
-      lp.connect(audioCtx.destination);
-
-      // soft chord pad (C E G)
-      const freqs = [261.63, 329.63, 392.00];
-      freqs.forEach((f, i) => {
-        const o = audioCtx.createOscillator();
-        o.type = "sine";
-        o.frequency.value = f;
-
-        const g = audioCtx.createGain();
-        g.gain.value = 0.0;
-
-        o.connect(g);
-        g.connect(master);
-
-        const now = audioCtx.currentTime;
-        g.gain.setValueAtTime(0, now);
-        g.gain.linearRampToValueAtTime(0.22 / (i+2), now + 1.8);
-
-        o.start();
-      });
-
-      // subtle noise bed
-      const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 2, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for(let i=0;i<data.length;i++){
-        data[i] = (Math.random()*2 - 1) * 0.010;
-      }
-      const noise = audioCtx.createBufferSource();
-      noise.buffer = buffer;
-      noise.loop = true;
-
-      const ng = audioCtx.createGain();
-      ng.gain.value = 0.075;
-
-      noise.connect(ng);
-      ng.connect(master);
-      noise.start();
-
-      // slow drift LFO
-      const lfo = audioCtx.createOscillator();
-      lfo.frequency.value = 0.06;
-      const lfoGain = audioCtx.createGain();
-      lfoGain.gain.value = 4.8;
-      lfo.connect(lfoGain);
-
-      // connect LFO to master filter for subtle movement
-      lfoGain.connect(lp.frequency);
-      lfo.start();
-    }
-
-    async function ensureAudio(){
-      if(!audioCtx) startAmbience();
-      if(audioCtx.state === "suspended") await audioCtx.resume();
-    }
-
-    function setMuted(next){
-      muted = next;
-      if(!master) return;
-
-      const now = audioCtx.currentTime;
-      master.gain.cancelScheduledValues(now);
-      master.gain.setValueAtTime(master.gain.value, now);
-      master.gain.linearRampToValueAtTime(muted ? 0.0 : 0.055, now + 0.35);
-
-      muteBtn.textContent = muted ? "Unmute" : "Mute";
-      muteBtn.setAttribute("aria-pressed", String(muted));
-    }
-
-    muteBtn.addEventListener("click", () => setMuted(!muted));
-
-    document.addEventListener("visibilitychange", () => {
-      if(!audioCtx || !master) return;
-      const now = audioCtx.currentTime;
-      master.gain.cancelScheduledValues(now);
-      master.gain.setValueAtTime(master.gain.value, now);
-      master.gain.linearRampToValueAtTime(document.hidden ? 0.0 : (muted ? 0.0 : 0.055), now + 0.25);
+    // Controls
+    muteBtn.addEventListener("click", () => {
+      isMuted = !isMuted;
+      bgm.muted = isMuted;
+      muteBtn.textContent = isMuted ? "Unmute" : "Mute";
+      muteBtn.setAttribute("aria-pressed", String(isMuted));
     });
 
-    // =========================
-    // INIT
-    // =========================
-    brandText.textContent = `for ${CONFIG.recipient.toLowerCase()}`;
-    heroTitle.textContent = CONFIG.recipient;
-    heroSub.textContent   = `from ${CONFIG.sender}`;
+    pauseBtn.addEventListener("click", () => {
+      isPaused = !isPaused;
+      pauseBtn.textContent = isPaused ? "Play" : "Pause";
+    });
 
-    (async () => {
-      resolvedCover = await resolveCoverImage();
+    prevBtn.addEventListener("click", () => { prevText(); });
+    nextBtn.addEventListener("click", () => { goText(); });
 
-      if(!resolvedCover){
-        heroBox.style.display = "none";
-        $("coverHero").style.minHeight = "0px";
-        coverImg.style.display = "none";
-      }else{
-        heroImg.src = resolvedCover;
-        coverImg.src = resolvedCover;
-      }
+    // Preload images (smooth transitions)
+    function preload(){
+      PHOTOS.forEach((p) => { const im = new Image(); im.src = p; });
+    }
 
-      discoveredGallery = await discoverGalleryImages();
-
-      // If gallery still empty, show a tiny note (non-intrusive)
-      if(!discoveredGallery.length){
-        galleryNote.style.display = "block";
-        galleryNote.textContent =
-          "Catatan kecil: kalau foto lain belum muncul, pastikan namanya assets/1.jpg, assets/2.jpg, dst (huruf besar-kecil harus sama).";
-      }
-
-      renderStack();
-      renderFilmstrip();
-      renderGrid();
-
-      // initial page
-      applyPage(idx);
-      setSwapIn();
-    })();
-
-    // Open gift (starts audio automatically here)
+    // Open: start music + slideshow + text autoplay
     openBtn.addEventListener("click", async () => {
-      await ensureAudio();
-      muteBtn.style.display = "inline-block";
-      setMuted(false);
+      preload();
 
+      // show control buttons (minimal)
+      muteBtn.style.display = "inline-block";
+      pauseBtn.style.display = "inline-block";
+
+      // initial render
+      pageIndex = 0;
+      setText(pageIndex);
+      renderStrip();
+
+      // initial photo
+      photoIndex = 0;
+      imgA.src = PHOTOS[photoIndex];
+      imgA.classList.add("show");
+      imgB.classList.remove("show");
+
+      // start music (autoplay after user gesture)
+      try{
+        bgm.volume = 0.75;
+        bgm.muted = false;
+        await bgm.play();
+      }catch(e){
+        // if browser blocks, keep silent but user can unmute/play via button
+        // (we keep UI minimal; Mute button still works if audio starts later)
+      }
+
+      // fade out cover
       cover.classList.add("fadeOut");
       setTimeout(() => { cover.style.display = "none"; }, 240);
+
+      // start auto transitions
+      startAuto();
     });
+
+    // good behavior when tab hidden
+    document.addEventListener("visibilitychange", () => {
+      if(document.hidden){
+        if(!bgm.paused) bgm.pause();
+      }else{
+        if(!isMuted){
+          // try resume silently; if blocked, no problem
+          bgm.play().catch(()=>{});
+        }
+      }
+    });
+
+    // Init default text behind cover (optional, clean)
+    setText(0);
   </script>
 </body>
 </html>
