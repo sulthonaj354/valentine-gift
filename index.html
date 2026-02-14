@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Untuk Kamu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#070A10;
+      --bg2:#0B1020;
+      --card: rgba(255,255,255,.07);
+      --stroke: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.88);
+      --muted: rgba(255,255,255,.62);
+      --accent: rgba(255,120,180,.85);
+      --accent2: rgba(120,190,255,.75);
+      --shadow: 0 25px 60px rgba(0,0,0,.45);
+      --radius: 22px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(255,120,180,.18), transparent 55%),
+        radial-gradient(900px 700px at 85% 20%, rgba(120,190,255,.16), transparent 60%),
+        radial-gradient(1100px 900px at 50% 95%, rgba(180,140,255,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow:hidden;
+    }
+
+    /* subtle star field */
+    .stars::before{
+      content:"";
+      position:fixed; inset:0;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,.22) 0 1px, transparent 2px),
+        radial-gradient(circle at 35% 70%, rgba(255,255,255,.18) 0 1px, transparent 2px),
+        radial-gradient(circle at 65% 30%, rgba(255,255,255,.16) 0 1px, transparent 2px),
+        radial-gradient(circle at 88% 78%, rgba(255,255,255,.20) 0 1px, transparent 2px),
+        radial-gradient(circle at 55% 50%, rgba(255,255,255,.12) 0 1px, transparent 2px);
+      background-size: 280px 280px, 340px 340px, 420px 420px, 520px 520px, 620px 620px;
+      opacity:.55;
+      filter: blur(.2px);
+      pointer-events:none;
+      transform: translateZ(0);
+      animation: drift 18s linear infinite;
+    }
+    @keyframes drift{
+      0%{transform: translate3d(0,0,0)}
+      100%{transform: translate3d(-40px, 30px, 0)}
+    }
+
+    .wrap{
+      position:relative;
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding:24px;
+    }
+
+    .card{
+      width:min(760px, 92vw);
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .brand{
+      display:flex; gap:10px; align-items:center;
+      letter-spacing:.2px;
+      color: rgba(255,255,255,.72);
+      font-size:13px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 18px rgba(255,120,180,.25);
+    }
+
+    .controls{
+      display:flex; gap:10px; align-items:center;
+    }
+
+    .btn{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.78);
+      padding:10px 12px;
+      border-radius: 999px;
+      font-size:12.5px;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.20); }
+    .btn:active{ transform: translateY(0px) scale(.99); }
+
+    .content{
+      padding:26px 22px 18px 22px;
+      min-height: 360px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    h1{
+      margin:0;
+      font-family: "Playfair Display", serif;
+      font-weight:600;
+      letter-spacing:.2px;
+      font-size: clamp(26px, 3.2vw, 38px);
+      line-height:1.15;
+    }
+    p{
+      margin:0;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height:1.7;
+      white-space:pre-line;
+    }
+
+    .fadeIn{
+      animation: fadeIn .35s ease both;
+    }
+    @keyframes fadeIn{
+      from{opacity:0; transform: translateY(8px)}
+      to{opacity:1; transform: translateY(0)}
+    }
+
+    .footer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding-top:18px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .pager{
+      display:flex; gap:8px; align-items:center;
+    }
+    .pill{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.14);
+      transition: transform .12s ease, background .12s ease;
+    }
+    .pill.active{
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-color: rgba(255,255,255,.24);
+      transform: scale(1.15);
+    }
+
+    .nav{
+      display:flex; gap:10px;
+    }
+
+    .signature{
+      color: rgba(255,255,255,.70);
+      font-size: 13px;
+    }
+
+    .hint{
+      color: rgba(255,255,255,.52);
+      font-size: 12px;
+      padding: 0 22px 20px 22px;
+    }
+
+    /* mobile */
+    @media (max-width: 520px){
+      .content{min-height: 420px}
+      .btn{padding:10px 11px}
+    }
+
+    /* accessibility */
+    @media (prefers-reduced-motion: reduce){
+      .stars::before{animation:none}
+      .fadeIn{animation:none}
+      .btn{transition:none}
+    }
+  </style>
+</head>
+
+<body class="stars">
+  <div class="wrap">
+    <div class="card" role="group" aria-label="Kado Valentine">
+      <div class="topbar">
+        <div class="brand">
+          <span class="dot"></span>
+          <span id="brandText">for you</span>
+        </div>
+
+        <div class="controls">
+          <button class="btn" id="soundBtn" aria-pressed="false" title="Toggle sound">Sound: Off</button>
+          <button class="btn" id="copyBtn" title="Copy link (kalau sudah online)">Copy Link</button>
+        </div>
+      </div>
+
+      <div class="content">
+        <div>
+          <h1 id="title" class="fadeIn"></h1>
+          <div style="height:10px"></div>
+          <p id="body" class="fadeIn"></p>
+        </div>
+
+        <div class="footer">
+          <div class="pager" id="pager"></div>
+
+          <div class="nav">
+            <button class="btn" id="prevBtn">Back</button>
+            <button class="btn" id="nextBtn">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hint" id="hint">
+        Tip: tap “Sound” dulu (browser butuh interaksi), lalu scroll santai tiap halaman.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================
+    // CONFIG — EDIT INI AJA
+    // =========================
+    const RECIPIENT = "ANNISA RAHMASARI";
+    const SENDER = "Uni";
+
+    // Teksnya dibuat aesthetic & tetap sehat (komitmen + batas + komunikasi), bukan posesif.
+    const PAGES = [
+      {
+        title: `Happy Valentine, ${RECIPIENT}.`,
+        body:
+`Bukan tentang hal besar.
+Cuma pengingat kecil: kamu dicintai, dihargai, dan didukung—hari ini, besok, dan seterusnya.`
+      },
+      {
+        title: `Aku bangga sama kamu.`,
+        body:
+`Seminar proposal itu bukan garis finis—itu tanda kamu berani mulai.
+Kalau ada hari yang terasa berat, ingat: kamu sudah membangun fondasi yang kuat.
+
+Pelan tapi pasti.
+Satu langkah lagi, lalu satu lagi.`
+      },
+      {
+        title: `Ingat tujuan awal kita.`,
+        body:
+`Kita sudah jalan jauh—dengan cara kita sendiri.
+Kalau nanti rame, sibuk, atau ada banyak suara, kita balik ke tujuan awal:
+tumbuh bareng, saling jaga, dan selalu jujur.
+
+Yang kita butuh cuma rasa aman—dibangun dari komunikasi yang jelas dan pilihan yang sama: kita.`
+      },
+      {
+        title: `Kita jaga ruang ini.`,
+        body:
+`Aku pengin hubungan kita tetap sederhana dan tenang.
+Jadi yuk sama-sama jaga batas, jaga kepercayaan, dan jangan biarkan hal kecil jadi jarak.
+
+Kalau ada yang mengganggu, kita bahas baik-baik—bukan dipendam.`
+      },
+      {
+        title: `Terima kasih…`,
+        body:
+`…sudah mau melangkah bareng aku.
+Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
+
+— ${SENDER}`
+      }
+    ];
+
+    // =========================
+    // UI LOGIC
+    // =========================
+    const titleEl = document.getElementById("title");
+    const bodyEl  = document.getElementById("body");
+    const pagerEl = document.getElementById("pager");
+    const brandEl = document.getElementById("brandText");
+
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const copyBtn = document.getElementById("copyBtn");
+
+    brandEl.textContent = `for ${RECIPIENT.toLowerCase()}`;
+
+    let idx = 0;
+
+    function renderPager(){
+      pagerEl.innerHTML = "";
+      for(let i=0;i<PAGES.length;i++){
+        const d = document.createElement("div");
+        d.className = "pill" + (i===idx ? " active" : "");
+        pagerEl.appendChild(d);
+      }
+    }
+
+    function render(){
+      titleEl.classList.remove("fadeIn");
+      bodyEl.classList.remove("fadeIn");
+      void titleEl.offsetWidth; // reflow
+      void bodyEl.offsetWidth;
+
+      titleEl.textContent = PAGES[idx].title;
+      bodyEl.textContent  = PAGES[idx].body;
+
+      titleEl.classList.add("fadeIn");
+      bodyEl.classList.add("fadeIn");
+
+      prevBtn.disabled = idx === 0;
+      nextBtn.textContent = (idx === PAGES.length-1) ? "Finish" : "Next";
+      renderPager();
+    }
+
+    prevBtn.addEventListener("click", () => {
+      if(idx>0){ idx--; render(); }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if(idx < PAGES.length-1){ idx++; render(); }
+      else { idx = 0; render(); }
+    });
+
+    copyBtn.addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(location.href);
+        copyBtn.textContent = "Copied ✓";
+        setTimeout(()=> copyBtn.textContent="Copy Link", 1200);
+      }catch(e){
+        copyBtn.textContent = "Copy gagal";
+        setTimeout(()=> copyBtn.textContent="Copy Link", 1200);
+      }
+    });
+
+    // =========================
+    // AESTHETIC AMBIENCE AUDIO (no mp3 needed)
+    // =========================
+    const soundBtn = document.getElementById("soundBtn");
+    let audioCtx = null, master = null, nodes = [];
+    let soundOn = false;
+
+    function startAmbience(){
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      master = audioCtx.createGain();
+      master.gain.value = 0.05;
+
+      const lp = audioCtx.createBiquadFilter();
+      lp.type = "lowpass";
+      lp.frequency.value = 900;
+
+      master.connect(lp);
+      lp.connect(audioCtx.destination);
+
+      // soft pad (C major-ish)
+      const freqs = [261.63, 329.63, 392.00]; // C E G
+      freqs.forEach((f, i) => {
+        const o = audioCtx.createOscillator();
+        o.type = "sine";
+        o.frequency.value = f;
+
+        const g = audioCtx.createGain();
+        g.gain.value = 0.0;
+
+        o.connect(g);
+        g.connect(master);
+
+        const now = audioCtx.currentTime;
+        g.gain.setValueAtTime(0, now);
+        g.gain.linearRampToValueAtTime(0.22 / (i+2), now + 1.6);
+
+        o.start();
+        nodes.push(o, g);
+      });
+
+      // subtle noise (very low)
+      const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 2, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for(let i=0;i<data.length;i++){
+        data[i] = (Math.random()*2 - 1) * 0.010;
+      }
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+      noise.loop = true;
+
+      const ng = audioCtx.createGain();
+      ng.gain.value = 0.08;
+
+      noise.connect(ng);
+      ng.connect(master);
+      noise.start();
+      nodes.push(noise, ng);
+
+      // slow drift
+      const lfo = audioCtx.createOscillator();
+      lfo.frequency.value = 0.06;
+      const lfoGain = audioCtx.createGain();
+      lfoGain.gain.value = 5.0;
+      lfo.connect(lfoGain);
+
+      // connect LFO to frequencies
+      nodes.forEach(n => {
+        if(n && n.frequency && typeof n.frequency.value === "number"){
+          lfoGain.connect(n.frequency);
+        }
+      });
+      lfo.start();
+      nodes.push(lfo, lfoGain);
+    }
+
+    async function toggleSound(){
+      if(!audioCtx){
+        startAmbience();
+      }
+      if(audioCtx.state === "suspended"){
+        await audioCtx.resume();
+      }
+      soundOn = !soundOn;
+      soundBtn.setAttribute("aria-pressed", String(soundOn));
+      soundBtn.textContent = soundOn ? "Sound: On" : "Sound: Off";
+      master.gain.value = soundOn ? 0.05 : 0.0;
+    }
+
+    soundBtn.addEventListener("click", toggleSound);
+
+    render();
+  </script>
+</body>
+</html>
