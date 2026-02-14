@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>For Annisa</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,18 +15,28 @@
       --bgB:#0A1122;
       --glass: rgba(255,255,255,.075);
       --stroke: rgba(255,255,255,.14);
+
       --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.64);
-      --muted2: rgba(255,255,255,.50);
+      --muted: rgba(255,255,255,.66);
+
       --accent1: rgba(255,125,190,.85);
       --accent2: rgba(120,190,255,.75);
-      --shadow: 0 30px 80px rgba(0,0,0,.55);
-      --radius: 22px;
+
+      --shadow: 0 30px 85px rgba(0,0,0,.58);
       --ease: cubic-bezier(.22,1,.36,1);
+
+      --radius: 22px;
+      --radiusSm: 16px;
+
+      --pad: 14px;
+      --gap: 12px;
+
+      --maxW: 980px;
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
+
     body{
       margin:0;
       color:var(--text);
@@ -36,10 +46,11 @@
         radial-gradient(1000px 800px at 90% 18%, rgba(120,190,255,.16), transparent 55%),
         radial-gradient(1000px 900px at 50% 92%, rgba(180,140,255,.12), transparent 60%),
         linear-gradient(180deg, var(--bgA), var(--bgB));
-      overflow:hidden;
+      overflow-x:hidden;
+      overflow-y:auto; /* mobile friendly */
     }
 
-    /* Premium grain */
+    /* grain (subtle) */
     .grain::before{
       content:"";
       position:fixed; inset:-40%;
@@ -58,10 +69,9 @@
       100%{transform:translate(-2%, -2%)}
     }
 
-    /* Subtle bokeh (no hearts) */
+    /* subtle bokeh dots */
     .bokeh{
-      position:fixed; inset:0; pointer-events:none;
-      opacity:.33;
+      position:fixed; inset:0; pointer-events:none; opacity:.28;
     }
     .bokeh i{
       position:absolute;
@@ -69,30 +79,29 @@
       border-radius:999px;
       background: rgba(255,255,255,.10);
       box-shadow: 0 0 22px rgba(255,255,255,.08);
-      animation: floatUp 16s linear infinite;
+      animation: floatUp 18s linear infinite;
     }
-    .bokeh i:nth-child(1){left:10%; top:110%; transform:scale(1.2); animation-duration: 18s}
-    .bokeh i:nth-child(2){left:26%; top:115%; transform:scale(.9); animation-duration: 20s}
-    .bokeh i:nth-child(3){left:44%; top:108%; transform:scale(1.6); animation-duration: 22s}
-    .bokeh i:nth-child(4){left:63%; top:112%; transform:scale(1.1); animation-duration: 19s}
-    .bokeh i:nth-child(5){left:78%; top:118%; transform:scale(.8); animation-duration: 21s}
-    .bokeh i:nth-child(6){left:90%; top:109%; transform:scale(1.3); animation-duration: 23s}
+    .bokeh i:nth-child(1){left:10%; top:112%; transform:scale(1.2); animation-duration: 20s}
+    .bokeh i:nth-child(2){left:26%; top:118%; transform:scale(.9); animation-duration: 22s}
+    .bokeh i:nth-child(3){left:44%; top:109%; transform:scale(1.6); animation-duration: 24s}
+    .bokeh i:nth-child(4){left:63%; top:114%; transform:scale(1.1); animation-duration: 21s}
+    .bokeh i:nth-child(5){left:78%; top:120%; transform:scale(.8); animation-duration: 23s}
+    .bokeh i:nth-child(6){left:90%; top:111%; transform:scale(1.3); animation-duration: 25s}
     @keyframes floatUp{
       from{ transform: translateY(0); opacity: 0; }
-      12%{opacity:.55}
-      to{ transform: translateY(-130vh); opacity: 0; }
+      14%{opacity:.55}
+      to{ transform: translateY(-135vh); opacity: 0; }
     }
 
     .wrap{
-      height:100%;
-      display:grid;
-      place-items:center;
-      padding:24px;
-      position:relative;
+      min-height:100%;
+      display:flex;
+      justify-content:center;
+      padding: 16px;
     }
 
     .card{
-      width:min(1020px, 94vw);
+      width: min(var(--maxW), 100%);
       border-radius: var(--radius);
       background: var(--glass);
       border: 1px solid var(--stroke);
@@ -100,15 +109,13 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       overflow:hidden;
-      position:relative;
-      transform: translateZ(0);
     }
 
     .topbar{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding:14px 16px;
+      padding: 12px 12px;
       border-bottom: 1px solid rgba(255,255,255,.08);
     }
 
@@ -118,132 +125,64 @@
       font-size:13px;
       letter-spacing:.2px;
       user-select:none;
+      min-width: 0;
+    }
+    .brand span:last-child{
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
     }
     .dot{
       width:10px; height:10px; border-radius:999px;
       background: linear-gradient(135deg, var(--accent1), var(--accent2));
       box-shadow: 0 0 18px rgba(255,125,190,.20);
+      flex:0 0 auto;
     }
 
-    .controls{display:flex; gap:10px; align-items:center;}
-
+    .controls{display:flex; gap:8px; align-items:center;}
     .btn{
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.80);
-      padding:10px 12px;
+      color: rgba(255,255,255,.82);
+      padding: 9px 11px;
       border-radius: 999px;
-      font-size:12.5px;
+      font-size: 12px;
       cursor:pointer;
       transition: transform .14s var(--ease), background .14s var(--ease), border-color .14s var(--ease), opacity .14s var(--ease);
       user-select:none;
+      white-space:nowrap;
     }
     .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.20); }
     .btn:active{ transform: translateY(0px) scale(.99); }
-    .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; }
 
     .content{
-      padding:18px;
-      display:grid;
-      gap:16px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:16px;
-      align-items:start;
-    }
-    @media (max-width: 920px){
-      .grid{ grid-template-columns: 1fr; }
-    }
-
-    /* LETTER */
-    .panel{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      padding: 18px 16px;
-      overflow:hidden;
-      position:relative;
-    }
-    .kicker{
-      font-size: 12px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.55);
-      margin:0 0 10px 0;
-    }
-    h1{
-      margin:0;
-      font-family: "Playfair Display", serif;
-      font-weight:600;
-      font-size: clamp(24px, 3.1vw, 40px);
-      line-height:1.10;
-      letter-spacing:.2px;
-    }
-    .body{
-      margin:12px 0 0 0;
-      color: var(--muted);
-      font-size: 15.7px;
-      line-height:1.80;
-      white-space:pre-line;
-    }
-
-    .swap{
-      min-height: 250px;
-      position:relative;
-    }
-    .in{ animation: in .70s var(--ease) both; }
-    .out{ animation: out .36s var(--ease) both; }
-    @keyframes in{
-      from{opacity:0; transform: translateY(10px); filter: blur(1px)}
-      to{opacity:1; transform: translateY(0); filter: blur(0)}
-    }
-    @keyframes out{
-      from{opacity:1; transform: translateY(0); filter: blur(0)}
-      to{opacity:0; transform: translateY(8px); filter: blur(1px)}
-    }
-
-    .footer{
+      padding: var(--pad);
       display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding-top: 14px;
-    }
-    .pager{display:flex; gap:8px; align-items:center;}
-    .pill{
-      width:8px; height:8px;
-      border-radius:999px;
-      background: rgba(255,255,255,.18);
-      border: 1px solid rgba(255,255,255,.12);
-      transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
-    }
-    .pill.active{
-      background: linear-gradient(135deg, var(--accent1), var(--accent2));
-      border-color: rgba(255,255,255,.22);
-      transform: scale(1.18);
+      flex-direction:column;
+      gap: var(--gap);
     }
 
-    /* PHOTO STAGE (crossfade) */
+    /* ===== MOBILE FIRST LAYOUT ===== */
     .photoStage{
-      border-radius: 18px;
+      border-radius: var(--radiusSm);
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.03);
       overflow:hidden;
       position:relative;
-      min-height: 360px;
-      box-shadow: 0 20px 50px rgba(0,0,0,.35);
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+
+      /* key: mobile-fit hero */
+      width:100%;
+      height: min(56vh, 520px);
+      min-height: 340px;
     }
     .photoStage::after{
       content:"";
       position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 36%, rgba(0,0,0,.62) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.66) 100%);
       pointer-events:none;
       z-index:3;
     }
-
     .layer{
       position:absolute; inset:0;
       width:100%; height:100%;
@@ -251,19 +190,16 @@
       transform: scale(1.02);
       filter: saturate(1.06) contrast(1.03);
       opacity:0;
-      transition: opacity 1.15s var(--ease);
+      transition: opacity 1.05s var(--ease);
       z-index:1;
     }
-    .layer.show{
-      opacity:1;
-      z-index:2;
-    }
+    .layer.show{ opacity:1; z-index:2; }
 
     .photoMeta{
       position:absolute;
-      left: 14px;
+      left: 12px;
       bottom: 12px;
-      right: 14px;
+      right: 12px;
       display:flex;
       justify-content:space-between;
       align-items:flex-end;
@@ -274,36 +210,39 @@
       margin:0;
       font-family:"Playfair Display", serif;
       font-weight:600;
-      font-size: 18px;
+      font-size: 16px;
       letter-spacing:.2px;
       color: rgba(255,255,255,.92);
-      text-shadow: 0 12px 28px rgba(0,0,0,.55);
+      text-shadow: 0 12px 28px rgba(0,0,0,.58);
+      max-width: 70%;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
     }
     .photoSub{
-      font-size: 12px;
+      font-size: 11.5px;
       color: rgba(255,255,255,.72);
       letter-spacing:.12px;
       white-space:nowrap;
     }
 
-    /* MINI STRIP */
     .strip{
-      margin-top: 12px;
       display:flex;
       gap:10px;
       overflow:auto;
       padding: 10px;
-      border-radius: 16px;
+      border-radius: var(--radiusSm);
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
+      -webkit-overflow-scrolling: touch;
     }
     .strip::-webkit-scrollbar{ height: 8px; }
     .strip::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.12); border-radius: 999px; }
 
     .thumb{
       flex: 0 0 auto;
-      width: 128px;
-      height: 86px;
+      width: 104px;
+      height: 72px;
       border-radius: 14px;
       overflow:hidden;
       border: 1px solid rgba(255,255,255,.10);
@@ -320,12 +259,78 @@
       filter: saturate(1.04) contrast(1.02);
     }
 
-    /* COVER OVERLAY */
+    /* TEXT PANEL */
+    .panel{
+      border-radius: var(--radiusSm);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 16px 14px;
+    }
+    .kicker{
+      font-size: 12px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+      margin:0 0 8px 0;
+    }
+    h1{
+      margin:0;
+      font-family: "Playfair Display", serif;
+      font-weight:600;
+      font-size: 24px;
+      line-height:1.12;
+      letter-spacing:.2px;
+    }
+    .body{
+      margin:10px 0 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height:1.75;
+      white-space:pre-line;
+    }
+
+    .swap{
+      position:relative;
+      min-height: 170px;
+    }
+    .in{ animation: in .65s var(--ease) both; }
+    .out{ animation: out .34s var(--ease) both; }
+    @keyframes in{
+      from{opacity:0; transform: translateY(10px); filter: blur(1px)}
+      to{opacity:1; transform: translateY(0); filter: blur(0)}
+    }
+    @keyframes out{
+      from{opacity:1; transform: translateY(0); filter: blur(0)}
+      to{opacity:0; transform: translateY(8px); filter: blur(1px)}
+    }
+
+    .footer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding-top: 12px;
+    }
+    .pager{display:flex; gap:8px; align-items:center;}
+    .pill{
+      width:8px; height:8px;
+      border-radius:999px;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.12);
+      transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
+    }
+    .pill.active{
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      border-color: rgba(255,255,255,.22);
+      transform: scale(1.18);
+    }
+
+    /* COVER */
     .cover{
       position:fixed; inset:0;
       display:grid;
       place-items:center;
-      padding:24px;
+      padding:20px;
       z-index:100;
       background:
         radial-gradient(900px 600px at 50% 30%, rgba(255,255,255,.08), transparent 65%),
@@ -334,17 +339,15 @@
       -webkit-backdrop-filter: blur(10px);
     }
     .coverCard{
-      width:min(780px, 94vw);
-      border-radius: 28px;
+      width:min(760px, 100%);
+      border-radius: 26px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
       box-shadow: 0 30px 110px rgba(0,0,0,.72);
       overflow:hidden;
-      position:relative;
     }
     .coverHero{
       position:relative;
-      min-height: 300px;
       background: rgba(255,255,255,.03);
     }
     .coverHero img{
@@ -363,7 +366,7 @@
     }
     .coverText{
       position:absolute;
-      left: 18px; right: 18px; bottom: 16px;
+      left: 16px; right: 16px; bottom: 16px;
     }
     .coverKicker{
       margin:0 0 8px 0;
@@ -376,12 +379,12 @@
       margin:0;
       font-family:"Playfair Display", serif;
       font-weight:600;
-      font-size: clamp(28px, 3.4vw, 46px);
+      font-size: 30px;
       line-height:1.06;
       color: rgba(255,255,255,.94);
     }
     .coverBottom{
-      padding: 16px 18px 18px 18px;
+      padding: 14px 16px 16px 16px;
       display:flex;
       justify-content:space-between;
       align-items:center;
@@ -390,7 +393,7 @@
     .coverNote{
       color: rgba(255,255,255,.70);
       font-size: 13px;
-      line-height:1.70;
+      line-height:1.65;
     }
 
     .fadeIn{ animation: fadeIn .60s var(--ease) both; }
@@ -398,89 +401,56 @@
     .fadeOut{ animation: fadeOut .30s var(--ease) both; }
     @keyframes fadeOut{ from{opacity:1} to{opacity:0; transform: translateY(6px)} }
 
+    /* ===== DESKTOP ENHANCEMENTS ===== */
+    @media (min-width: 980px){
+      :root{ --pad: 16px; --gap: 14px; }
+
+      .content{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+          "photo panel"
+          "strip panel";
+        column-gap: 14px;
+        row-gap: 14px;
+        align-items:start;
+      }
+
+      .photoStage{ grid-area: photo; height: 520px; min-height: 520px; }
+      .strip{ grid-area: strip; }
+      .panel{ grid-area: panel; height: 100%; }
+
+      h1{ font-size: 30px; }
+      .body{ font-size: 15.6px; }
+      .swap{ min-height: 260px; }
+
+      .thumb{ width: 122px; height: 84px; }
+      .photoTitle{ font-size: 18px; }
+      .photoSub{ font-size: 12px; }
+    }
+
     @media (prefers-reduced-motion: reduce){
       .grain::before{animation:none}
-      .btn{transition:none}
-      .in,.out,.fadeIn,.fadeOut{animation:none}
-      .layer{transition:none}
-      .thumb{transition:none}
       .bokeh i{animation:none}
+      .layer{transition:none}
+      .in,.out,.fadeIn,.fadeOut{animation:none}
+      .btn{transition:none}
     }
-    /* =========================
-   MOBILE FIX (HP)
-   ========================= */
-@media (max-width: 920px){
-  body{ overflow:auto; }            /* biar bisa scroll nyaman */
-  .wrap{ height:auto; padding:16px; }
-  .card{ width:100%; }
-
-  .content{ padding:14px; gap:14px; }
-  .grid{ grid-template-columns: 1fr; gap:14px; }
-
-  /* Urutan: FOTO dulu, lalu TEKS */
-  .grid > div:first-child{ order: 2; }  /* panel teks */
-  .grid > div:last-child{ order: 1; }   /* foto */
-
-  /* Panel teks lebih “ringan” */
-  .panel{ padding:16px 14px; }
-  .swap{ min-height: unset; }
-  h1{ font-size: 26px; line-height:1.12; }
-  .body{ font-size: 15px; line-height:1.75; }
-
-  /* Foto jadi hero yang pas untuk hp */
-  .photoStage{
-    min-height: 0;
-    height: 52vh;               /* hero mobile */
-    max-height: 520px;
-    border-radius: 18px;
-  }
-  .layer{
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* Meta di foto lebih kecil biar nggak nutup */
-  .photoTitle{ font-size: 16px; }
-  .photoSub{ font-size: 11.5px; }
-
-  /* Strip thumbnail rapihin */
-  .strip{
-    margin-top: 10px;
-    padding: 10px;
-    gap: 10px;
-  }
-  .thumb{
-    width: 104px;
-    height: 74px;
-  }
-
-  /* Topbar biar nggak sempit */
-  .topbar{ padding:12px 12px; }
-  .btn{ padding:9px 11px; font-size:12px; }
-}
-
-/* extra small phones */
-@media (max-width: 380px){
-  .photoStage{ height: 48vh; }
-  .thumb{ width: 96px; height: 68px; }
-  h1{ font-size: 24px; }
-}
-
   </style>
 </head>
 
 <body class="grain">
   <div class="bokeh" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
-  <!-- background music -->
+  <!-- Music file from your repo root -->
   <audio id="bgm" preload="auto" loop src="music.mp3"></audio>
 
   <div class="wrap">
-    <div class="card">
+    <div class="card" role="group" aria-label="Kado digital">
       <div class="topbar">
         <div class="brand">
           <span class="dot"></span>
-          <span id="brandText">for annisa</span>
+          <span id="brandText">for annisa rahmasari</span>
         </div>
         <div class="controls">
           <button class="btn" id="pauseBtn" style="display:none;">Pause</button>
@@ -489,44 +459,39 @@
       </div>
 
       <div class="content">
-        <div class="grid">
-          <!-- LETTER -->
-          <div class="panel">
-            <p class="kicker" id="kicker">valentine</p>
-
-            <div class="swap" id="swapBox">
-              <h1 id="title" class="in"></h1>
-              <p id="body" class="body in"></p>
-            </div>
-
-            <div class="footer">
-              <div class="pager" id="pager"></div>
-              <div style="display:flex; gap:10px;">
-                <button class="btn" id="prevBtn">Back</button>
-                <button class="btn" id="nextBtn">Next</button>
-              </div>
-            </div>
+        <!-- Photo -->
+        <div class="photoStage" id="stage">
+          <img id="imgA" class="layer show" alt="photo A">
+          <img id="imgB" class="layer" alt="photo B">
+          <div class="photoMeta">
+            <p class="photoTitle" id="photoTitle">Annisa Rahmasari</p>
+            <div class="photoSub" id="photoSub">from Uni From Bandung</div>
           </div>
+        </div>
 
-          <!-- PHOTO -->
-          <div>
-            <div class="photoStage" id="stage">
-              <img id="imgA" class="layer show" alt="photo A">
-              <img id="imgB" class="layer" alt="photo B">
-              <div class="photoMeta">
-                <p class="photoTitle" id="photoTitle">Annisa Rahmasari</p>
-                <div class="photoSub" id="photoSub">from Uni From Bandung</div>
-              </div>
+        <!-- Strip -->
+        <div class="strip" id="strip" aria-label="Thumbnail photos"></div>
+
+        <!-- Text panel -->
+        <div class="panel">
+          <p class="kicker" id="kicker">valentine</p>
+          <div class="swap" id="swapBox">
+            <h1 id="title" class="in"></h1>
+            <p id="body" class="body in"></p>
+          </div>
+          <div class="footer">
+            <div class="pager" id="pager"></div>
+            <div style="display:flex; gap:10px;">
+              <button class="btn" id="prevBtn">Back</button>
+              <button class="btn" id="nextBtn">Next</button>
             </div>
-
-            <div class="strip" id="strip"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Cover overlay -->
+  <!-- Cover -->
   <div class="cover" id="cover">
     <div class="coverCard fadeIn">
       <div class="coverHero">
@@ -539,7 +504,7 @@
       <div class="coverBottom">
         <div class="coverNote">
           Hal kecil, tapi tulus.<br>
-          Tap “Open” — musik & slideshow akan mulai otomatis.
+          Tap “Open” — musik, foto, dan kata-kata akan berjalan otomatis.
         </div>
         <button class="btn" id="openBtn">Open</button>
       </div>
@@ -547,18 +512,17 @@
   </div>
 
   <script>
-    // ===== Fixed names (as you asked)
+    // ===== Fixed names
     const RECIPIENT = "Annisa Rahmasari";
     const SENDER    = "Uni From Bandung";
 
-    // ===== Your assets (ROOT folder, exactly like your repo)
-    // NOTE: GitHub Pages is case-sensitive → keep the exact file names below.
+    // ===== Assets in ROOT (exact case)
     const PHOTOS = ["cover.JPG", "1.JPG", "2.JPG", "3.JPG"];
     const MUSIC  = "music.mp3";
 
-    // ===== Auto-play timings (smooth, not rushed)
-    const PHOTO_INTERVAL_MS = 6500;  // 6.5s per photo
-    const TEXT_INTERVAL_MS  = 9000;  // 9s per page
+    // ===== Timing
+    const PHOTO_INTERVAL_MS = 6500; // photo slideshow
+    const TEXT_INTERVAL_MS  = 9000; // message autoplay
 
     const PAGES = [
       {
@@ -610,7 +574,6 @@ Aku sayang kamu—dengan cara yang tenang.
       },
     ];
 
-    // ===== Elements
     const $ = (id) => document.getElementById(id);
 
     const brandText = $("brandText");
@@ -624,8 +587,6 @@ Aku sayang kamu—dengan cara yang tenang.
 
     const imgA      = $("imgA");
     const imgB      = $("imgB");
-    const photoTitle= $("photoTitle");
-    const photoSub  = $("photoSub");
     const strip     = $("strip");
 
     const cover     = $("cover");
@@ -635,7 +596,6 @@ Aku sayang kamu—dengan cara yang tenang.
     const muteBtn   = $("muteBtn");
     const pauseBtn  = $("pauseBtn");
 
-    // ===== State
     let pageIndex = 0;
     let photoIndex = 0;
     let showingA = true;
@@ -645,10 +605,8 @@ Aku sayang kamu—dengan cara yang tenang.
     let isPaused = false;
     let isMuted  = false;
 
-    // ===== UI init
+    // init text on load (behind cover, harmless)
     brandText.textContent = `for ${RECIPIENT.toLowerCase()}`;
-    photoTitle.textContent = RECIPIENT;
-    photoSub.textContent   = `from ${SENDER}`;
     bgm.src = MUSIC;
 
     function renderPager(){
@@ -660,45 +618,43 @@ Aku sayang kamu—dengan cara yang tenang.
       }
     }
 
-    function setText(i){
-      const p = PAGES[i];
-      kickerEl.textContent = p.kicker || "";
-      titleEl.textContent  = p.title || "";
-      bodyEl.textContent   = p.body  || "";
-      renderPager();
-      prevBtn.disabled = (i===0);
-      nextBtn.textContent = (i===PAGES.length-1) ? "Finish" : "Next";
-
-      // animate
+    function animateText(){
       titleEl.classList.remove("in"); bodyEl.classList.remove("in");
       titleEl.classList.add("out");   bodyEl.classList.add("out");
       setTimeout(() => {
         titleEl.classList.remove("out"); bodyEl.classList.remove("out");
         void titleEl.offsetWidth;
         titleEl.classList.add("in"); bodyEl.classList.add("in");
-      }, 220);
+      }, 210);
+    }
+
+    function setText(i){
+      const p = PAGES[i];
+      kickerEl.textContent = p.kicker || "";
+      titleEl.textContent  = p.title || "";
+      bodyEl.textContent   = p.body  || "";
+      renderPager();
+
+      prevBtn.disabled = (i===0);
+      nextBtn.textContent = (i===PAGES.length-1) ? "Finish" : "Next";
+      animateText();
     }
 
     function nextText(){
       pageIndex = (pageIndex + 1) % PAGES.length;
       setText(pageIndex);
     }
-
     function prevText(){
       pageIndex = Math.max(0, pageIndex - 1);
       setText(pageIndex);
     }
-
     function goText(){
-      if(pageIndex === PAGES.length - 1){
-        pageIndex = 0;
-      } else {
-        pageIndex++;
-      }
+      if(pageIndex === PAGES.length - 1) pageIndex = 0;
+      else pageIndex++;
       setText(pageIndex);
     }
 
-    // Crossfade photo
+    // photo crossfade
     function setPhoto(src){
       const show = showingA ? imgB : imgA;
       const hide = showingA ? imgA : imgB;
@@ -710,13 +666,12 @@ Aku sayang kamu—dengan cara yang tenang.
         showingA = !showingA;
       };
     }
-
     function nextPhoto(){
       photoIndex = (photoIndex + 1) % PHOTOS.length;
       setPhoto(PHOTOS[photoIndex]);
     }
 
-    // Strip thumbnails
+    // thumbnails
     function renderStrip(){
       strip.innerHTML = "";
       PHOTOS.forEach((src, idx) => {
@@ -734,7 +689,10 @@ Aku sayang kamu—dengan cara yang tenang.
       });
     }
 
-    // Autoplay loop
+    function preload(){
+      PHOTOS.forEach((p) => { const im = new Image(); im.src = p; });
+    }
+
     function startAuto(){
       stopAuto();
       photoTimer = setInterval(() => { if(!isPaused) nextPhoto(); }, PHOTO_INTERVAL_MS);
@@ -746,7 +704,7 @@ Aku sayang kamu—dengan cara yang tenang.
       photoTimer = null; textTimer = null;
     }
 
-    // Controls
+    // controls
     muteBtn.addEventListener("click", () => {
       isMuted = !isMuted;
       bgm.muted = isMuted;
@@ -759,26 +717,20 @@ Aku sayang kamu—dengan cara yang tenang.
       pauseBtn.textContent = isPaused ? "Play" : "Pause";
     });
 
-    prevBtn.addEventListener("click", () => { prevText(); });
-    nextBtn.addEventListener("click", () => { goText(); });
+    prevBtn.addEventListener("click", prevText);
+    nextBtn.addEventListener("click", goText);
 
-    // Preload images (smooth transitions)
-    function preload(){
-      PHOTOS.forEach((p) => { const im = new Image(); im.src = p; });
-    }
-
-    // Open: start music + slideshow + text autoplay
+    // open flow
     openBtn.addEventListener("click", async () => {
       preload();
 
-      // show control buttons (minimal)
+      // show controls
       muteBtn.style.display = "inline-block";
       pauseBtn.style.display = "inline-block";
 
-      // initial render
+      // set initial content
       pageIndex = 0;
       setText(pageIndex);
-      renderStrip();
 
       // initial photo
       photoIndex = 0;
@@ -786,39 +738,36 @@ Aku sayang kamu—dengan cara yang tenang.
       imgA.classList.add("show");
       imgB.classList.remove("show");
 
-      // start music (autoplay after user gesture)
+      renderStrip();
+
+      // start music (allowed after user gesture)
       try{
-        bgm.volume = 0.75;
+        bgm.volume = 0.85;
         bgm.muted = false;
         await bgm.play();
       }catch(e){
-        // if browser blocks, keep silent but user can unmute/play via button
-        // (we keep UI minimal; Mute button still works if audio starts later)
+        // if blocked by browser, user can still unmute/try by pressing pause/play later
       }
 
-      // fade out cover
+      // hide cover
       cover.classList.add("fadeOut");
       setTimeout(() => { cover.style.display = "none"; }, 240);
 
-      // start auto transitions
+      // autoplay transitions
       startAuto();
     });
 
-    // good behavior when tab hidden
+    // nice behavior
     document.addEventListener("visibilitychange", () => {
       if(document.hidden){
         if(!bgm.paused) bgm.pause();
       }else{
-        if(!isMuted){
-          // try resume silently; if blocked, no problem
-          bgm.play().catch(()=>{});
-        }
+        if(!isMuted) bgm.play().catch(()=>{});
       }
     });
 
-    // Init default text behind cover (optional, clean)
+    // initial behind cover
     setText(0);
   </script>
 </body>
 </html>
-
