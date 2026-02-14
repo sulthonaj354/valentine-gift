@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#070A10" />
   <title>For Annisa</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,6 +14,7 @@
     :root{
       --bgA:#070A10;
       --bgB:#0A1122;
+
       --glass: rgba(255,255,255,.075);
       --stroke: rgba(255,255,255,.14);
 
@@ -47,7 +49,7 @@
         radial-gradient(1000px 900px at 50% 92%, rgba(180,140,255,.12), transparent 60%),
         linear-gradient(180deg, var(--bgA), var(--bgB));
       overflow-x:hidden;
-      overflow-y:auto; /* mobile friendly */
+      overflow-y:auto;
     }
 
     /* grain (subtle) */
@@ -69,9 +71,9 @@
       100%{transform:translate(-2%, -2%)}
     }
 
-    /* subtle bokeh dots */
+    /* bokeh dots (very subtle) */
     .bokeh{
-      position:fixed; inset:0; pointer-events:none; opacity:.28;
+      position:fixed; inset:0; pointer-events:none; opacity:.25;
     }
     .bokeh i{
       position:absolute;
@@ -97,7 +99,7 @@
       min-height:100%;
       display:flex;
       justify-content:center;
-      padding: 16px;
+      padding: calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)) 16px;
     }
 
     .card{
@@ -162,7 +164,7 @@
       gap: var(--gap);
     }
 
-    /* ===== MOBILE FIRST LAYOUT ===== */
+    /* ===== MOBILE-FIRST ===== */
     .photoStage{
       border-radius: var(--radiusSm);
       border: 1px solid rgba(255,255,255,.12);
@@ -171,7 +173,6 @@
       position:relative;
       box-shadow: 0 18px 50px rgba(0,0,0,.35);
 
-      /* key: mobile-fit hero */
       width:100%;
       height: min(56vh, 520px);
       min-height: 340px;
@@ -179,7 +180,7 @@
     .photoStage::after{
       content:"";
       position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.66) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0) 42%, rgba(0,0,0,.68) 100%);
       pointer-events:none;
       z-index:3;
     }
@@ -235,6 +236,7 @@
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
       -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
     }
     .strip::-webkit-scrollbar{ height: 8px; }
     .strip::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.12); border-radius: 999px; }
@@ -248,7 +250,9 @@
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
       cursor:pointer;
-      transition: transform .22s var(--ease);
+      transition: transform .22s var(--ease), border-color .22s var(--ease);
+      scroll-snap-align: start;
+      position:relative;
     }
     .thumb:hover{ transform: translateY(-2px); }
     .thumb img{
@@ -257,6 +261,16 @@
       display:block;
       transform: scale(1.02);
       filter: saturate(1.04) contrast(1.02);
+    }
+    .thumb.active{
+      border-color: rgba(255,255,255,.34);
+    }
+    .thumb.active::after{
+      content:"";
+      position:absolute; inset:0;
+      border-radius: 14px;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.22);
+      pointer-events:none;
     }
 
     /* TEXT PANEL */
@@ -442,7 +456,7 @@
 <body class="grain">
   <div class="bokeh" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
-  <!-- Music file from your repo root -->
+  <!-- Music from repo root -->
   <audio id="bgm" preload="auto" loop src="music.mp3"></audio>
 
   <div class="wrap">
@@ -469,10 +483,10 @@
           </div>
         </div>
 
-        <!-- Strip -->
+        <!-- Thumbnails -->
         <div class="strip" id="strip" aria-label="Thumbnail photos"></div>
 
-        <!-- Text panel -->
+        <!-- Text -->
         <div class="panel">
           <p class="kicker" id="kicker">valentine</p>
           <div class="swap" id="swapBox">
@@ -504,7 +518,7 @@
       <div class="coverBottom">
         <div class="coverNote">
           Hal kecil, tapi tulus.<br>
-          Tap “Open” — musik, foto, dan kata-kata akan berjalan otomatis.
+          Tap “Open” — musik, foto, dan kata-kata akan jalan otomatis.
         </div>
         <button class="btn" id="openBtn">Open</button>
       </div>
@@ -512,17 +526,34 @@
   </div>
 
   <script>
-    // ===== Fixed names
+    // ========= Fixed names
     const RECIPIENT = "Annisa Rahmasari";
     const SENDER    = "Uni From Bandung";
 
-    // ===== Assets in ROOT (exact case)
-    const PHOTOS = ["cover.JPG", "1.JPG", "2.JPG", "3.JPG"];
-    const MUSIC  = "music.mp3";
+    // ========= Assets in ROOT (exact case from your repo)
+    // Cover + your existing + the new uploaded photos (from screenshot)
+    const PHOTOS = [
+      "cover.JPG",
+      "1.JPG",
+      "2.JPG",
+      "3.JPG",
+      "IMG_6621.JPG",
+      "IMG_6665.JPG",
+      "IMG_6674.JPG",
+      "IMG_6687.JPG",
+      "IMG_6699.JPG",
+      "IMG_6714.JPG",
+      "IMG_9575.JPG",
+      "IMG_9601.JPG",
+      "IMG_9615.JPG",
+      "15F297AF-8CF1-4824-82E3-FDBA306AE10D.jpg"
+    ];
 
-    // ===== Timing
-    const PHOTO_INTERVAL_MS = 6500; // photo slideshow
-    const TEXT_INTERVAL_MS  = 9000; // message autoplay
+    const MUSIC = "music.mp3";
+
+    // ========= Timing (smooth)
+    const PHOTO_INTERVAL_MS = 6200;
+    const TEXT_INTERVAL_MS  = 9200;
 
     const PAGES = [
       {
@@ -605,7 +636,7 @@ Aku sayang kamu—dengan cara yang tenang.
     let isPaused = false;
     let isMuted  = false;
 
-    // init text on load (behind cover, harmless)
+    // init (behind cover)
     brandText.textContent = `for ${RECIPIENT.toLowerCase()}`;
     bgm.src = MUSIC;
 
@@ -664,6 +695,7 @@ Aku sayang kamu—dengan cara yang tenang.
         show.classList.add("show");
         hide.classList.remove("show");
         showingA = !showingA;
+        setActiveThumb();
       };
     }
     function nextPhoto(){
@@ -671,15 +703,21 @@ Aku sayang kamu—dengan cara yang tenang.
       setPhoto(PHOTOS[photoIndex]);
     }
 
-    // thumbnails
+    function setActiveThumb(){
+      const thumbs = strip.querySelectorAll(".thumb");
+      thumbs.forEach((t, i) => t.classList.toggle("active", i === photoIndex));
+    }
+
+    // thumbnails (lazy by default)
     function renderStrip(){
       strip.innerHTML = "";
       PHOTOS.forEach((src, idx) => {
         const t = document.createElement("div");
-        t.className = "thumb";
+        t.className = "thumb" + (idx === 0 ? " active" : "");
         const im = document.createElement("img");
         im.src = src;
         im.alt = "thumb";
+        im.loading = "lazy";
         t.appendChild(im);
         t.addEventListener("click", () => {
           photoIndex = idx;
@@ -689,8 +727,15 @@ Aku sayang kamu—dengan cara yang tenang.
       });
     }
 
-    function preload(){
-      PHOTOS.forEach((p) => { const im = new Image(); im.src = p; });
+    // smarter preload: first 4 + next 4 (biar ringan di mobile)
+    function preloadLight(){
+      const toPreload = new Set();
+      for(let i=0;i<Math.min(4, PHOTOS.length);i++) toPreload.add(PHOTOS[i]);
+      for(let j=0;j<4;j++){
+        const k = (photoIndex + j) % PHOTOS.length;
+        toPreload.add(PHOTOS[k]);
+      }
+      toPreload.forEach((p) => { const im = new Image(); im.src = p; });
     }
 
     function startAuto(){
@@ -720,11 +765,8 @@ Aku sayang kamu—dengan cara yang tenang.
     prevBtn.addEventListener("click", prevText);
     nextBtn.addEventListener("click", goText);
 
-    // open flow
+    // Open: start music + slideshow + auto text
     openBtn.addEventListener("click", async () => {
-      preload();
-
-      // show controls
       muteBtn.style.display = "inline-block";
       pauseBtn.style.display = "inline-block";
 
@@ -739,25 +781,31 @@ Aku sayang kamu—dengan cara yang tenang.
       imgB.classList.remove("show");
 
       renderStrip();
+      preloadLight();
 
-      // start music (allowed after user gesture)
+      // try music autoplay (allowed after user gesture)
       try{
-        bgm.volume = 0.85;
+        bgm.volume = 0.88;
         bgm.muted = false;
         await bgm.play();
       }catch(e){
-        // if blocked by browser, user can still unmute/try by pressing pause/play later
+        // if blocked, user can still tap Mute/Unmute later
       }
 
       // hide cover
       cover.classList.add("fadeOut");
       setTimeout(() => { cover.style.display = "none"; }, 240);
 
-      // autoplay transitions
+      // run autoplay
       startAuto();
     });
 
-    // nice behavior
+    // small optimization: preload next batch as slideshow progresses
+    setInterval(() => {
+      if(!cover || cover.style.display === "none") preloadLight();
+    }, 5000);
+
+    // behavior when tab hidden
     document.addEventListener("visibilitychange", () => {
       if(document.hidden){
         if(!bgm.paused) bgm.pause();
