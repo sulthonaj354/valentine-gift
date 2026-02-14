@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Untuk Kamu</title>
 
-  <!-- Fonts (clean + premium) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
@@ -18,11 +17,11 @@
       --stroke: rgba(255,255,255,.14);
       --text: rgba(255,255,255,.90);
       --muted: rgba(255,255,255,.62);
-      --muted2: rgba(255,255,255,.48);
-      --accent1: rgba(255, 120, 180, .85);
-      --accent2: rgba(120, 190, 255, .75);
+      --accent1: rgba(255,120,180,.85);
+      --accent2: rgba(120,190,255,.75);
       --shadow: 0 30px 70px rgba(0,0,0,.50);
       --radius: 22px;
+      --ease: cubic-bezier(.22,1,.36,1);
     }
 
     *{box-sizing:border-box}
@@ -39,14 +38,13 @@
       overflow:hidden;
     }
 
-    /* subtle moving grain (premium film feel) */
+    /* premium grain */
     .grain::before{
       content:"";
       position:fixed; inset:-40%;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
       opacity:.10;
       pointer-events:none;
-      transform:translateZ(0);
       animation: grainMove 10s steps(6) infinite;
       mix-blend-mode: overlay;
     }
@@ -59,22 +57,6 @@
       100%{transform:translate(-2%, -2%)}
     }
 
-    /* star points */
-    .stars::after{
-      content:"";
-      position:fixed; inset:0;
-      background-image:
-        radial-gradient(circle at 10% 20%, rgba(255,255,255,.22) 0 1px, transparent 2px),
-        radial-gradient(circle at 35% 70%, rgba(255,255,255,.18) 0 1px, transparent 2px),
-        radial-gradient(circle at 65% 30%, rgba(255,255,255,.14) 0 1px, transparent 2px),
-        radial-gradient(circle at 88% 78%, rgba(255,255,255,.20) 0 1px, transparent 2px),
-        radial-gradient(circle at 55% 55%, rgba(255,255,255,.12) 0 1px, transparent 2px);
-      background-size: 280px 280px, 340px 340px, 420px 420px, 520px 520px, 620px 620px;
-      opacity:.45;
-      pointer-events:none;
-      transform: translateZ(0);
-    }
-
     .wrap{
       height:100%;
       display:grid;
@@ -84,7 +66,7 @@
     }
 
     .card{
-      width:min(820px, 94vw);
+      width:min(840px, 94vw);
       border-radius: var(--radius);
       background: var(--card);
       border: 1px solid var(--stroke);
@@ -93,6 +75,7 @@
       -webkit-backdrop-filter: blur(16px);
       overflow:hidden;
       position:relative;
+      transform: translateZ(0);
     }
 
     .topbar{
@@ -117,6 +100,7 @@
     }
 
     .controls{display:flex; gap:10px; align-items:center;}
+
     .btn{
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
@@ -125,7 +109,7 @@
       border-radius: 999px;
       font-size:12.5px;
       cursor:pointer;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease, opacity .12s ease;
+      transition: transform .14s var(--ease), background .14s var(--ease), border-color .14s var(--ease), opacity .14s var(--ease);
       user-select:none;
     }
     .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.20); }
@@ -138,7 +122,7 @@
       gap:16px;
     }
 
-    /* HERO PHOTO */
+    /* HERO */
     .hero{
       position:relative;
       overflow:hidden;
@@ -188,7 +172,7 @@
       white-space:nowrap;
     }
 
-    /* MESSAGE */
+    /* MESSAGE PANEL */
     .panel{
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.10);
@@ -202,6 +186,11 @@
       text-transform: uppercase;
       color: rgba(255,255,255,.55);
       margin:0 0 10px 0;
+    }
+
+    .swap{
+      position:relative;
+      min-height: 160px;
     }
 
     h1{
@@ -221,12 +210,28 @@
       white-space:pre-line;
     }
 
+    /* Elegant transitions (no “alay”) */
+    .fadeInUp{
+      animation: fadeInUp .55s var(--ease) both;
+    }
+    .fadeOutDown{
+      animation: fadeOutDown .35s var(--ease) both;
+    }
+    @keyframes fadeInUp{
+      from{opacity:0; transform: translateY(10px); filter: blur(1px)}
+      to{opacity:1; transform: translateY(0); filter: blur(0)}
+    }
+    @keyframes fadeOutDown{
+      from{opacity:1; transform: translateY(0); filter: blur(0)}
+      to{opacity:0; transform: translateY(8px); filter: blur(1px)}
+    }
+
     .footer{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      padding-top: 10px;
+      padding-top: 12px;
     }
 
     .pager{display:flex; gap:8px; align-items:center;}
@@ -235,7 +240,7 @@
       border-radius:999px;
       background: rgba(255,255,255,.18);
       border: 1px solid rgba(255,255,255,.12);
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
     }
     .pill.active{
       background: linear-gradient(135deg, var(--accent1), var(--accent2));
@@ -245,10 +250,8 @@
 
     .nav{display:flex; gap:10px;}
 
-    /* Optional gallery */
-    .galleryWrap{
-      margin-top: 10px;
-    }
+    /* Gallery */
+    .galleryWrap{ margin-top: 6px; }
     .galleryTitle{
       margin: 0 0 10px 2px;
       font-size: 12px;
@@ -275,9 +278,9 @@
       height: 76px;
       object-fit: cover;
       display:block;
-      filter: saturate(1.04) contrast(1.02);
       transform: scale(1.02);
-      transition: transform .18s ease;
+      transition: transform .22s var(--ease);
+      filter: saturate(1.04) contrast(1.02);
     }
     .thumb:hover img{ transform: scale(1.06); }
 
@@ -317,16 +320,9 @@
       position:absolute;
       top: 10px;
       right: 10px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.08);
-      color: rgba(255,255,255,.78);
-      padding: 10px 12px;
-      border-radius: 999px;
-      cursor:pointer;
-      font-size: 12px;
     }
 
-    /* Cover overlay (gift-like open) */
+    /* Cover overlay */
     .cover{
       position:fixed; inset:0;
       display:grid;
@@ -358,8 +354,8 @@
       height: 260px;
       object-fit: cover;
       display:block;
-      filter: saturate(1.05) contrast(1.03);
       transform: scale(1.02);
+      filter: saturate(1.05) contrast(1.03);
     }
     .coverHero::after{
       content:"";
@@ -399,23 +395,22 @@
       line-height:1.6;
     }
 
-    .fadeIn{ animation: fadeIn .35s ease both; }
+    .fadeIn{ animation: fadeIn .45s var(--ease) both; }
     @keyframes fadeIn{ from{opacity:0; transform: translateY(10px)} to{opacity:1; transform: translateY(0)} }
 
-    .fadeOut{ animation: fadeOut .25s ease both; }
+    .fadeOut{ animation: fadeOut .28s var(--ease) both; }
     @keyframes fadeOut{ from{opacity:1} to{opacity:0; transform: translateY(6px)} }
 
-    /* Reduce motion */
     @media (prefers-reduced-motion: reduce){
       .grain::before{animation:none}
       .btn{transition:none}
       .thumb img{transition:none}
-      .fadeIn,.fadeOut{animation:none}
+      .fadeIn,.fadeOut,.fadeInUp,.fadeOutDown{animation:none}
     }
   </style>
 </head>
 
-<body class="grain stars">
+<body class="grain">
   <div class="wrap">
     <div class="card" role="group" aria-label="Kado digital">
       <div class="topbar">
@@ -425,28 +420,27 @@
         </div>
 
         <div class="controls">
-          <button class="btn" id="soundBtn" aria-pressed="false" title="Toggle ambience">Sound: Off</button>
-          <button class="btn" id="copyBtn" title="Copy link (kalau sudah online)">Copy Link</button>
+          <!-- NO COPY BUTTON (removed) -->
+          <button class="btn" id="muteBtn" aria-pressed="false" title="Mute / Unmute" style="display:none;">Mute</button>
         </div>
       </div>
 
       <div class="content">
-        <!-- HERO IMAGE -->
         <div class="hero fadeIn" id="heroBox">
           <img id="heroImg" src="" alt="Foto kita" />
           <div class="heroMeta">
-            <div>
-              <p class="heroTitle" id="heroTitle">For you</p>
-            </div>
+            <p class="heroTitle" id="heroTitle">For you</p>
             <div class="heroDate" id="heroDate"></div>
           </div>
         </div>
 
-        <!-- MESSAGE PANEL -->
         <div class="panel">
           <p class="kicker" id="kicker">a small note</p>
-          <h1 id="title" class="fadeIn"></h1>
-          <p id="body" class="body fadeIn"></p>
+
+          <div class="swap" id="swapBox">
+            <h1 id="title" class="fadeInUp"></h1>
+            <p id="body" class="body fadeInUp"></p>
+          </div>
 
           <div class="footer">
             <div class="pager" id="pager"></div>
@@ -457,7 +451,6 @@
           </div>
         </div>
 
-        <!-- OPTIONAL GALLERY -->
         <div class="galleryWrap" id="galleryWrap" style="display:none;">
           <p class="galleryTitle">moments</p>
           <div class="gallery" id="gallery"></div>
@@ -466,15 +459,13 @@
     </div>
   </div>
 
-  <!-- Lightbox -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <div class="lightboxInner">
-      <button class="lightboxClose" id="lightboxClose">Close</button>
+      <button class="btn lightboxClose" id="lightboxClose">Close</button>
       <img id="lightboxImg" src="" alt="Foto" />
     </div>
   </div>
 
-  <!-- Cover overlay (tap to open) -->
   <div class="cover" id="cover">
     <div class="coverCard fadeIn">
       <div class="coverHero" id="coverHero">
@@ -485,9 +476,7 @@
         </div>
       </div>
       <div class="coverBottom">
-        <div class="coverNote" id="coverNote">
-          Tap “Open” — pelan aja bacanya.
-        </div>
+        <div class="coverNote" id="coverNote">Tap “Open”.</div>
         <button class="btn" id="openBtn">Open</button>
       </div>
     </div>
@@ -495,26 +484,27 @@
 
   <script>
     // =========================
-    // CONFIG — EDIT INI SAJA
+    // CONFIG — EDIT INI AJA
     // =========================
     const CONFIG = {
       recipient: "Annisa Rahmasari",
-      sender: "Uni",
+      sender: "Uni Bandung",
       dateText: "14 February",
+
+      // Kamu boleh biarkan ini default.
+      // Kalau cover kamu beda ekstensi/nama, kode akan auto-cari kandidat lain.
       heroImage: "assets/cover.jpg",
 
       // Optional gallery (boleh kosong [])
-      // Pastikan file ada di folder assets/
       galleryImages: [
         // "assets/1.jpg",
         // "assets/2.jpg",
-        // "assets/3.jpg",
       ],
 
       pages: [
         {
           kicker: "valentine",
-          title: (c) => `Happy Valentine, ${c.recipient}.`,
+          title: c => `Happy Valentine, ${c.recipient}.`,
           body:
 `Bukan tentang hal besar.
 Cuma pengingat kecil: kamu dicintai, dihargai, dan didukung—hari ini, besok, dan seterusnya.`
@@ -551,7 +541,7 @@ Kalau ada yang mengganggu, kita bahas baik-baik—bukan dipendam.`
         {
           kicker: "always",
           title: () => `Terima kasih…`,
-          body: (c) =>
+          body: c =>
 `…sudah mau melangkah bareng aku.
 Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
 
@@ -561,46 +551,75 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
     };
 
     // =========================
-    // ELEMENTS
+    // HELPERS
     // =========================
-    const brandText = document.getElementById("brandText");
-    const heroImg   = document.getElementById("heroImg");
-    const heroBox   = document.getElementById("heroBox");
-    const heroTitle = document.getElementById("heroTitle");
-    const heroDate  = document.getElementById("heroDate");
+    const $ = (id) => document.getElementById(id);
+    const brandText = $("brandText");
+    const heroImg = $("heroImg");
+    const heroBox = $("heroBox");
+    const heroTitle = $("heroTitle");
+    const heroDate = $("heroDate");
 
-    const titleEl  = document.getElementById("title");
-    const bodyEl   = document.getElementById("body");
-    const kickerEl = document.getElementById("kicker");
+    const kickerEl = $("kicker");
+    const titleEl  = $("title");
+    const bodyEl   = $("body");
+    const swapBox  = $("swapBox");
 
-    const pagerEl = document.getElementById("pager");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
+    const pagerEl = $("pager");
+    const prevBtn = $("prevBtn");
+    const nextBtn = $("nextBtn");
 
-    const copyBtn  = document.getElementById("copyBtn");
-    const soundBtn = document.getElementById("soundBtn");
+    const galleryWrap = $("galleryWrap");
+    const galleryEl = $("gallery");
 
-    const galleryWrap = document.getElementById("galleryWrap");
-    const galleryEl   = document.getElementById("gallery");
+    const lightbox = $("lightbox");
+    const lightboxImg = $("lightboxImg");
+    const lightboxClose = $("lightboxClose");
 
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightboxImg");
-    const lightboxClose = document.getElementById("lightboxClose");
+    const cover = $("cover");
+    const openBtn = $("openBtn");
+    const coverImg = $("coverImg");
+    const coverTitle = $("coverTitle");
+    const coverKicker = $("coverKicker");
+    const coverNote = $("coverNote");
 
-    const cover = document.getElementById("cover");
-    const openBtn = document.getElementById("openBtn");
-    const coverImg = document.getElementById("coverImg");
-    const coverTitle = document.getElementById("coverTitle");
-    const coverKicker = document.getElementById("coverKicker");
-    const coverNote = document.getElementById("coverNote");
+    const muteBtn = $("muteBtn");
 
-    // =========================
-    // STATE + RENDER
-    // =========================
     let idx = 0;
 
-    function safeText(v){
-      return (typeof v === "function") ? v(CONFIG) : v;
+    function safeText(v){ return (typeof v === "function") ? v(CONFIG) : v; }
+
+    async function tryLoad(src){
+      return new Promise((resolve) => {
+        const im = new Image();
+        im.onload = () => resolve(src);
+        im.onerror = () => resolve(null);
+        im.src = src;
+      });
+    }
+
+    // auto-fix path issues (case/extension variants)
+    async function resolveHeroImage(){
+      const base = CONFIG.heroImage || "assets/cover.jpg";
+      const candidates = [
+        base,
+        "./" + base,
+        "assets/cover.jpg","./assets/cover.jpg",
+        "assets/cover.jpeg","./assets/cover.jpeg",
+        "assets/cover.png","./assets/cover.png",
+        "assets/cover.JPG","./assets/cover.JPG",
+        "assets/Cover.jpg","./assets/Cover.jpg",
+        "assets/Cover.JPG","./assets/Cover.JPG",
+        "cover.jpg","./cover.jpg",
+        "cover.jpeg","./cover.jpeg",
+        "cover.png","./cover.png",
+      ];
+
+      for(const c of candidates){
+        const ok = await tryLoad(c);
+        if(ok) return ok;
+      }
+      return null;
     }
 
     function renderPager(){
@@ -612,77 +631,74 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
       }
     }
 
-    function animateSwap(){
-      titleEl.classList.remove("fadeIn");
-      bodyEl.classList.remove("fadeIn");
-      void titleEl.offsetWidth;
-      void bodyEl.offsetWidth;
-      titleEl.classList.add("fadeIn");
-      bodyEl.classList.add("fadeIn");
+    function swapTo(nextIndex){
+      // elegant out → in
+      titleEl.classList.remove("fadeInUp");
+      bodyEl.classList.remove("fadeInUp");
+      titleEl.classList.add("fadeOutDown");
+      bodyEl.classList.add("fadeOutDown");
+
+      setTimeout(() => {
+        idx = nextIndex;
+
+        const page = CONFIG.pages[idx];
+        kickerEl.textContent = safeText(page.kicker || "");
+        titleEl.textContent  = safeText(page.title);
+        bodyEl.textContent   = safeText(page.body);
+
+        prevBtn.disabled = idx === 0;
+        nextBtn.textContent = (idx === CONFIG.pages.length - 1) ? "Finish" : "Next";
+        renderPager();
+
+        titleEl.classList.remove("fadeOutDown");
+        bodyEl.classList.remove("fadeOutDown");
+        void swapBox.offsetWidth; // reflow
+        titleEl.classList.add("fadeInUp");
+        bodyEl.classList.add("fadeInUp");
+      }, 230);
     }
 
-    function render(){
+    function initText(){
       const page = CONFIG.pages[idx];
-
       kickerEl.textContent = safeText(page.kicker || "");
       titleEl.textContent  = safeText(page.title);
       bodyEl.textContent   = safeText(page.body);
-
-      prevBtn.disabled = idx === 0;
-      nextBtn.textContent = (idx === CONFIG.pages.length - 1) ? "Finish" : "Next";
-
+      prevBtn.disabled = true;
+      nextBtn.textContent = "Next";
       renderPager();
-      animateSwap();
     }
 
     prevBtn.addEventListener("click", () => {
-      if(idx > 0){ idx--; render(); }
+      if(idx > 0) swapTo(idx - 1);
     });
 
     nextBtn.addEventListener("click", () => {
-      if(idx < CONFIG.pages.length - 1){ idx++; render(); }
-      else { idx = 0; render(); }
+      if(idx < CONFIG.pages.length - 1) swapTo(idx + 1);
+      else swapTo(0);
     });
 
     // =========================
-    // HERO + COVER IMAGE
+    // GALLERY
     // =========================
-    function setImage(imgEl, src, onFail){
-      imgEl.src = src;
-      imgEl.onerror = () => { if(onFail) onFail(); };
+    function openLightbox(src){
+      lightboxImg.src = src;
+      lightbox.classList.add("show");
+      lightbox.setAttribute("aria-hidden", "false");
     }
+    function closeLightbox(){
+      lightbox.classList.remove("show");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxImg.src = "";
+    }
+    lightbox.addEventListener("click", (e) => { if(e.target === lightbox) closeLightbox(); });
+    lightboxClose.addEventListener("click", closeLightbox);
+    window.addEventListener("keydown", (e) => { if(e.key === "Escape") closeLightbox(); });
 
-    brandText.textContent = `for ${CONFIG.recipient.toLowerCase()}`;
-    heroTitle.textContent = `For ${CONFIG.recipient}`;
-    heroDate.textContent  = CONFIG.dateText;
-
-    setImage(heroImg, CONFIG.heroImage, () => {
-      // If missing, hide hero section
-      heroBox.style.display = "none";
-    });
-
-    setImage(coverImg, CONFIG.heroImage, () => {
-      // If missing, keep cover but without image
-      document.getElementById("coverHero").style.minHeight = "0px";
-      coverImg.style.display = "none";
-    });
-
-    coverTitle.textContent = `For ${CONFIG.recipient}.`;
-    coverKicker.textContent = "valentine note";
-    coverNote.textContent = "Tap “Open” — pelan aja bacanya.";
-
-    // =========================
-    // OPTIONAL GALLERY
-    // =========================
     function renderGallery(){
-      const imgs = CONFIG.galleryImages || [];
-      if(!imgs.length){
-        galleryWrap.style.display = "none";
-        return;
-      }
+      const imgs = (CONFIG.galleryImages || []).filter(Boolean);
+      if(!imgs.length){ galleryWrap.style.display = "none"; return; }
       galleryWrap.style.display = "block";
       galleryEl.innerHTML = "";
-
       imgs.forEach((src) => {
         const t = document.createElement("div");
         t.className = "thumb";
@@ -690,61 +706,23 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
         im.src = src;
         im.alt = "Moment";
         t.appendChild(im);
-
         t.addEventListener("click", () => openLightbox(src));
         galleryEl.appendChild(t);
       });
     }
 
-    function openLightbox(src){
-      lightboxImg.src = src;
-      lightbox.classList.add("show");
-      lightbox.setAttribute("aria-hidden", "false");
-    }
-
-    function closeLightbox(){
-      lightbox.classList.remove("show");
-      lightbox.setAttribute("aria-hidden", "true");
-      lightboxImg.src = "";
-    }
-
-    lightbox.addEventListener("click", (e) => {
-      if(e.target === lightbox) closeLightbox();
-    });
-    lightboxClose.addEventListener("click", closeLightbox);
-    window.addEventListener("keydown", (e) => {
-      if(e.key === "Escape") closeLightbox();
-    });
-
-    renderGallery();
-
     // =========================
-    // COPY LINK
-    // =========================
-    copyBtn.addEventListener("click", async () => {
-      try{
-        await navigator.clipboard.writeText(location.href);
-        copyBtn.textContent = "Copied ✓";
-        setTimeout(()=> copyBtn.textContent="Copy Link", 1200);
-      }catch(e){
-        copyBtn.textContent = "Copy gagal";
-        setTimeout(()=> copyBtn.textContent="Copy Link", 1200);
-      }
-    });
-
-    // =========================
-    // AESTHETIC AMBIENCE AUDIO (no mp3 needed)
+    // AMBIENCE AUDIO (auto start when user taps Open)
     // =========================
     let audioCtx = null, master = null, nodes = [];
-    let soundOn = false;
+    let muted = false;
 
     function startAmbience(){
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
       master = audioCtx.createGain();
-      master.gain.value = 0.0; // start muted
+      master.gain.value = 0.0; // fade in later
 
-      // filter chain
       const lp = audioCtx.createBiquadFilter();
       lp.type = "lowpass";
       lp.frequency.value = 950;
@@ -752,7 +730,7 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
       master.connect(lp);
       lp.connect(audioCtx.destination);
 
-      // Soft chord pad (C E G)
+      // soft chord pad (C E G)
       const freqs = [261.63, 329.63, 392.00];
       freqs.forEach((f, i) => {
         const o = audioCtx.createOscillator();
@@ -773,7 +751,7 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
         nodes.push(o, g);
       });
 
-      // Subtle noise bed
+      // subtle noise bed
       const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 2, audioCtx.sampleRate);
       const data = buffer.getChannelData(0);
       for(let i=0;i<data.length;i++){
@@ -791,7 +769,7 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
       noise.start();
       nodes.push(noise, ng);
 
-      // Slow drift LFO
+      // drift LFO
       const lfo = audioCtx.createOscillator();
       lfo.frequency.value = 0.06;
       const lfoGain = audioCtx.createGain();
@@ -807,36 +785,66 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
       nodes.push(lfo, lfoGain);
     }
 
-    async function toggleSound(){
+    async function ensureAudio(){
       if(!audioCtx) startAmbience();
       if(audioCtx.state === "suspended") await audioCtx.resume();
-
-      soundOn = !soundOn;
-      soundBtn.setAttribute("aria-pressed", String(soundOn));
-      soundBtn.textContent = soundOn ? "Sound: On" : "Sound: Off";
-
-      // volume (low, calm)
-      master.gain.value = soundOn ? 0.055 : 0.0;
     }
 
-    soundBtn.addEventListener("click", toggleSound);
+    function setMuted(next){
+      muted = next;
+      if(!master) return;
+      master.gain.value = muted ? 0.0 : 0.055; // low + calm
+      muteBtn.textContent = muted ? "Unmute" : "Mute";
+      muteBtn.setAttribute("aria-pressed", String(muted));
+    }
+
+    muteBtn.addEventListener("click", () => setMuted(!muted));
 
     // =========================
-    // OPEN COVER (gift feel)
+    // INIT UI
     // =========================
-    function openGift(){
+    brandText.textContent = `for ${CONFIG.recipient.toLowerCase()}`;
+    heroTitle.textContent = `For ${CONFIG.recipient}`;
+    heroDate.textContent  = CONFIG.dateText;
+
+    coverTitle.textContent = `For ${CONFIG.recipient}.`;
+    coverKicker.textContent = "valentine note";
+    coverNote.textContent = "Tap “Open” — pelan aja bacanya.";
+
+    renderGallery();
+    initText();
+
+    // Load hero image with fallback candidates
+    (async () => {
+      const resolved = await resolveHeroImage();
+      if(!resolved){
+        heroBox.style.display = "none";
+        // keep cover (still works without image)
+        $("coverHero").style.minHeight = "0px";
+        coverImg.style.display = "none";
+        return;
+      }
+      heroImg.src = resolved;
+      coverImg.src = resolved;
+    })();
+
+    // Open gift → audio auto (no Sound button)
+    openBtn.addEventListener("click", async () => {
+      // user gesture happens here → safe point to start audio
+      await ensureAudio();
+      muteBtn.style.display = "inline-block";
+      setMuted(false);
+
       cover.classList.add("fadeOut");
       setTimeout(() => { cover.style.display = "none"; }, 220);
-      render();
+    });
 
-      // Optional: auto turn on sound only if user already clicked Sound before
-      // (we keep it off by default, respectful)
-    }
-
-    openBtn.addEventListener("click", openGift);
-
-    // Initial render behind cover (safe)
-    render();
+    // Pause audio if tab hidden (nice touch)
+    document.addEventListener("visibilitychange", () => {
+      if(!audioCtx || !master) return;
+      if(document.hidden){ master.gain.value = 0.0; }
+      else if(!muted){ master.gain.value = 0.055; }
+    });
   </script>
 </body>
 </html>
