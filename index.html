@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Untuk Kamu</title>
+  <title>For Annisa</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,14 +13,20 @@
     :root{
       --bgA:#070A10;
       --bgB:#0A1122;
-      --card: rgba(255,255,255,.075);
+
+      --glass: rgba(255,255,255,.075);
       --stroke: rgba(255,255,255,.14);
-      --text: rgba(255,255,255,.90);
-      --muted: rgba(255,255,255,.62);
-      --accent1: rgba(255,120,180,.85);
+
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.64);
+      --muted2: rgba(255,255,255,.50);
+
+      --accent1: rgba(255,125,190,.85);
       --accent2: rgba(120,190,255,.75);
-      --shadow: 0 30px 70px rgba(0,0,0,.50);
+
+      --shadow: 0 30px 80px rgba(0,0,0,.55);
       --radius: 22px;
+
       --ease: cubic-bezier(.22,1,.36,1);
     }
 
@@ -31,14 +37,14 @@
       color:var(--text);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background:
-        radial-gradient(1200px 900px at 10% 8%, rgba(255,120,180,.18), transparent 55%),
+        radial-gradient(1200px 900px at 10% 8%, rgba(255,125,190,.18), transparent 55%),
         radial-gradient(1000px 800px at 90% 18%, rgba(120,190,255,.16), transparent 55%),
         radial-gradient(1000px 900px at 50% 92%, rgba(180,140,255,.12), transparent 60%),
         linear-gradient(180deg, var(--bgA), var(--bgB));
       overflow:hidden;
     }
 
-    /* premium grain */
+    /* Premium film grain */
     .grain::before{
       content:"";
       position:fixed; inset:-40%;
@@ -57,6 +63,33 @@
       100%{transform:translate(-2%, -2%)}
     }
 
+    /* Subtle floating bokeh (no hearts, no “alay”) */
+    .bokeh{
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.35;
+      filter: blur(0.2px);
+    }
+    .bokeh span{
+      position:absolute;
+      width: 10px; height: 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.10);
+      box-shadow: 0 0 22px rgba(255,255,255,.08);
+      animation: floatUp 14s linear infinite;
+    }
+    .bokeh span:nth-child(1){left:10%; top:95%; transform:scale(1.2); animation-duration: 16s}
+    .bokeh span:nth-child(2){left:24%; top:105%; transform:scale(.9); animation-duration: 18s}
+    .bokeh span:nth-child(3){left:42%; top:98%; transform:scale(1.6); animation-duration: 20s}
+    .bokeh span:nth-child(4){left:63%; top:102%; transform:scale(1.1); animation-duration: 17s}
+    .bokeh span:nth-child(5){left:78%; top:110%; transform:scale(.8); animation-duration: 19s}
+    .bokeh span:nth-child(6){left:90%; top:96%; transform:scale(1.3); animation-duration: 21s}
+    @keyframes floatUp{
+      from{ transform: translateY(0) scale(var(--s,1)); opacity: 0; }
+      10%{opacity:.55}
+      to{ transform: translateY(-120vh) scale(var(--s,1)); opacity: 0; }
+    }
+
     .wrap{
       height:100%;
       display:grid;
@@ -66,9 +99,9 @@
     }
 
     .card{
-      width:min(840px, 94vw);
+      width:min(980px, 94vw);
       border-radius: var(--radius);
-      background: var(--card);
+      background: var(--glass);
       border: 1px solid var(--stroke);
       box-shadow: var(--shadow);
       backdrop-filter: blur(16px);
@@ -88,7 +121,7 @@
 
     .brand{
       display:flex; gap:10px; align-items:center;
-      color: rgba(255,255,255,.70);
+      color: rgba(255,255,255,.72);
       font-size:13px;
       letter-spacing:.2px;
       user-select:none;
@@ -96,15 +129,14 @@
     .dot{
       width:10px; height:10px; border-radius:999px;
       background: linear-gradient(135deg, var(--accent1), var(--accent2));
-      box-shadow: 0 0 18px rgba(255,120,180,.22);
+      box-shadow: 0 0 18px rgba(255,125,190,.20);
     }
 
     .controls{display:flex; gap:10px; align-items:center;}
-
     .btn{
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.78);
+      color: rgba(255,255,255,.80);
       padding:10px 12px;
       border-radius: 999px;
       font-size:12.5px;
@@ -117,12 +149,102 @@
     .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; }
 
     .content{
-      padding:20px 22px 18px 22px;
+      padding:18px 18px 18px 18px;
       display:grid;
       gap:16px;
     }
 
-    /* HERO */
+    /* Main layout */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:16px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    /* Letter panel */
+    .panel{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 18px 16px;
+      overflow:hidden;
+      position:relative;
+    }
+    .kicker{
+      font-size: 12px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.55);
+      margin:0 0 10px 0;
+    }
+    h1{
+      margin:0;
+      font-family: "Playfair Display", serif;
+      font-weight:600;
+      font-size: clamp(24px, 3.0vw, 38px);
+      line-height:1.12;
+      letter-spacing:.2px;
+    }
+    .body{
+      margin:12px 0 0 0;
+      color: var(--muted);
+      font-size: 15.6px;
+      line-height:1.78;
+      white-space:pre-line;
+    }
+
+    /* Elegant page transition */
+    .swap{
+      min-height: 220px;
+      position:relative;
+    }
+    .in{
+      animation: in .62s var(--ease) both;
+    }
+    .out{
+      animation: out .34s var(--ease) both;
+    }
+    @keyframes in{
+      from{opacity:0; transform: translateY(10px); filter: blur(1px)}
+      to{opacity:1; transform: translateY(0); filter: blur(0)}
+    }
+    @keyframes out{
+      from{opacity:1; transform: translateY(0); filter: blur(0)}
+      to{opacity:0; transform: translateY(8px); filter: blur(1px)}
+    }
+
+    .footer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding-top: 14px;
+    }
+    .pager{display:flex; gap:8px; align-items:center;}
+    .pill{
+      width:8px; height:8px;
+      border-radius:999px;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.12);
+      transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
+    }
+    .pill.active{
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      border-color: rgba(255,255,255,.22);
+      transform: scale(1.18);
+    }
+    .nav{display:flex; gap:10px;}
+
+    /* Photo area (more aesthetic) */
+    .photoArea{
+      display:grid;
+      gap:16px;
+    }
+
     .hero{
       position:relative;
       overflow:hidden;
@@ -165,127 +287,150 @@
       color: rgba(255,255,255,.92);
       text-shadow: 0 10px 30px rgba(0,0,0,.5);
     }
-    .heroDate{
+    .heroSub{
       font-size: 12px;
-      color: rgba(255,255,255,.70);
-      letter-spacing:.15px;
+      color: rgba(255,255,255,.72);
+      letter-spacing:.12px;
       white-space:nowrap;
     }
 
-    /* MESSAGE PANEL */
-    .panel{
+    /* Polaroid stack */
+    .stack{
+      position:relative;
+      height: 240px;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      padding: 18px 16px;
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      padding: 14px;
+    }
+    .polaroid{
+      position:absolute;
+      width: 62%;
+      max-width: 360px;
+      aspect-ratio: 4 / 5;
+      border-radius: 16px;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      padding: 10px 10px 18px 10px;
+      cursor:pointer;
+      transition: transform .55s var(--ease), box-shadow .55s var(--ease);
+      transform-origin: 50% 70%;
+    }
+    .polaroid:hover{
+      transform: translateY(-4px) rotate(0deg) scale(1.02) !important;
+      box-shadow: 0 26px 65px rgba(0,0,0,.45);
+    }
+    .polaroid img{
+      width:100%;
+      height: calc(100% - 18px);
+      object-fit: cover;
+      border-radius: 12px;
+      display:block;
+      filter: saturate(1.05) contrast(1.02);
+    }
+    .polaroid .cap{
+      margin-top: 10px;
+      font-size: 12px;
+      letter-spacing:.18em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,.55);
+      text-align:center;
+      font-family: Inter, system-ui, sans-serif;
     }
 
-    .kicker{
+    /* Filmstrip */
+    .strip{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      padding: 12px;
+      overflow:hidden;
+    }
+    .stripTop{
+      display:flex; justify-content:space-between; align-items:center;
+      margin-bottom: 10px;
+    }
+    .stripTitle{
+      margin:0;
       font-size: 12px;
       letter-spacing: .22em;
       text-transform: uppercase;
       color: rgba(255,255,255,.55);
-      margin:0 0 10px 0;
     }
-
-    .swap{
-      position:relative;
-      min-height: 160px;
-    }
-
-    h1{
+    .stripHint{
       margin:0;
-      font-family: "Playfair Display", serif;
-      font-weight:600;
-      font-size: clamp(24px, 3.0vw, 36px);
-      line-height:1.15;
-      letter-spacing:.2px;
-    }
-
-    .body{
-      margin:10px 0 0 0;
-      color: var(--muted);
-      font-size: 15.5px;
-      line-height:1.75;
-      white-space:pre-line;
-    }
-
-    /* Elegant transitions (no “alay”) */
-    .fadeInUp{
-      animation: fadeInUp .55s var(--ease) both;
-    }
-    .fadeOutDown{
-      animation: fadeOutDown .35s var(--ease) both;
-    }
-    @keyframes fadeInUp{
-      from{opacity:0; transform: translateY(10px); filter: blur(1px)}
-      to{opacity:1; transform: translateY(0); filter: blur(0)}
-    }
-    @keyframes fadeOutDown{
-      from{opacity:1; transform: translateY(0); filter: blur(0)}
-      to{opacity:0; transform: translateY(8px); filter: blur(1px)}
-    }
-
-    .footer{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding-top: 12px;
-    }
-
-    .pager{display:flex; gap:8px; align-items:center;}
-    .pill{
-      width:8px; height:8px;
-      border-radius:999px;
-      background: rgba(255,255,255,.18);
-      border: 1px solid rgba(255,255,255,.12);
-      transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
-    }
-    .pill.active{
-      background: linear-gradient(135deg, var(--accent1), var(--accent2));
-      border-color: rgba(255,255,255,.22);
-      transform: scale(1.18);
-    }
-
-    .nav{display:flex; gap:10px;}
-
-    /* Gallery */
-    .galleryWrap{ margin-top: 6px; }
-    .galleryTitle{
-      margin: 0 0 10px 2px;
       font-size: 12px;
-      color: rgba(255,255,255,.55);
-      letter-spacing:.18em;
+      color: rgba(255,255,255,.45);
+    }
+    .film{
+      display:flex;
+      gap:10px;
+      overflow:auto;
+      padding-bottom: 6px;
+      scroll-snap-type: x mandatory;
+    }
+    .film::-webkit-scrollbar{ height: 8px; }
+    .film::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.12); border-radius: 999px; }
+    .thumb{
+      flex: 0 0 auto;
+      width: 120px;
+      height: 88px;
+      border-radius: 14px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      scroll-snap-align: start;
+      cursor:pointer;
+      transition: transform .22s var(--ease);
+    }
+    .thumb:hover{ transform: translateY(-2px); }
+    .thumb img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      filter: saturate(1.04) contrast(1.02);
+      transform: scale(1.02);
+    }
+
+    /* Full gallery grid */
+    .galleryWrap{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      padding: 14px;
+    }
+    .galleryTitle{
+      margin: 0 0 12px 0;
+      font-size: 12px;
+      letter-spacing: .22em;
       text-transform: uppercase;
+      color: rgba(255,255,255,.55);
     }
     .gallery{
       display:grid;
       grid-template-columns: repeat(6, 1fr);
       gap:10px;
     }
-    .thumb{
+    @media (max-width: 900px){ .gallery{ grid-template-columns: repeat(3, 1fr);} }
+    .cell{
       border-radius: 14px;
       overflow:hidden;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
       cursor:pointer;
-      position:relative;
-      min-height: 64px;
+      transition: transform .22s var(--ease);
+      min-height: 74px;
     }
-    .thumb img{
+    .cell:hover{ transform: translateY(-2px); }
+    .cell img{
       width:100%;
-      height: 76px;
+      height: 92px;
       object-fit: cover;
       display:block;
       transform: scale(1.02);
-      transition: transform .22s var(--ease);
       filter: saturate(1.04) contrast(1.02);
-    }
-    .thumb:hover img{ transform: scale(1.06); }
-
-    @media (max-width: 720px){
-      .gallery{ grid-template-columns: repeat(3, 1fr); }
     }
 
     /* Lightbox */
@@ -295,31 +440,47 @@
       display:none;
       place-items:center;
       padding: 20px;
-      z-index: 50;
+      z-index: 80;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
     .lightbox.show{ display:grid; }
     .lightboxInner{
-      width:min(920px, 92vw);
-      border-radius: 20px;
+      width:min(980px, 92vw);
+      border-radius: 22px;
       overflow:hidden;
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(20,22,30,.55);
-      box-shadow: 0 30px 80px rgba(0,0,0,.6);
+      box-shadow: 0 30px 90px rgba(0,0,0,.65);
       position:relative;
     }
     .lightboxInner img{
       width:100%;
-      height: min(78vh, 720px);
+      height: min(80vh, 760px);
       object-fit: contain;
       display:block;
       background: rgba(0,0,0,.35);
     }
-    .lightboxClose{
-      position:absolute;
-      top: 10px;
-      right: 10px;
+    .lbTop{
+      position:absolute; top: 12px; right: 12px; left: 12px;
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      pointer-events:none;
+    }
+    .lbTag{
+      pointer-events:none;
+      font-size: 12px;
+      letter-spacing:.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.60);
+      background: rgba(0,0,0,.28);
+      border: 1px solid rgba(255,255,255,.14);
+      padding: 10px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .lbClose{
+      pointer-events:auto;
     }
 
     /* Cover overlay */
@@ -328,30 +489,30 @@
       display:grid;
       place-items:center;
       padding:24px;
-      z-index: 60;
+      z-index: 100;
       background:
         radial-gradient(900px 600px at 50% 30%, rgba(255,255,255,.08), transparent 65%),
-        linear-gradient(180deg, rgba(5,7,12,.90), rgba(5,7,12,.70));
+        linear-gradient(180deg, rgba(5,7,12,.92), rgba(5,7,12,.72));
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
     .coverCard{
-      width:min(720px, 94vw);
-      border-radius: 26px;
+      width:min(760px, 94vw);
+      border-radius: 28px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
-      box-shadow: 0 30px 90px rgba(0,0,0,.65);
+      box-shadow: 0 30px 100px rgba(0,0,0,.70);
       overflow:hidden;
       position:relative;
     }
     .coverHero{
       position:relative;
-      min-height: 240px;
+      min-height: 280px;
       background: rgba(255,255,255,.03);
     }
     .coverHero img{
       width:100%;
-      height: 260px;
+      height: 300px;
       object-fit: cover;
       display:block;
       transform: scale(1.02);
@@ -360,7 +521,7 @@
     .coverHero::after{
       content:"";
       position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,.10) 0%, rgba(0,0,0,.72) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,.08) 0%, rgba(0,0,0,.78) 100%);
       pointer-events:none;
     }
     .coverText{
@@ -368,18 +529,18 @@
       left: 18px; right: 18px; bottom: 16px;
     }
     .coverKicker{
-      margin:0 0 6px 0;
+      margin:0 0 8px 0;
       font-size: 12px;
       letter-spacing: .22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,.65);
+      color: rgba(255,255,255,.66);
     }
     .coverTitle{
       margin:0;
       font-family:"Playfair Display", serif;
       font-weight:600;
-      font-size: clamp(26px, 3.2vw, 40px);
-      line-height:1.08;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height:1.06;
       color: rgba(255,255,255,.94);
     }
     .coverBottom{
@@ -392,91 +553,127 @@
     .coverNote{
       color: rgba(255,255,255,.70);
       font-size: 13px;
-      line-height:1.6;
+      line-height:1.65;
     }
 
-    .fadeIn{ animation: fadeIn .45s var(--ease) both; }
+    .fadeIn{ animation: fadeIn .55s var(--ease) both; }
     @keyframes fadeIn{ from{opacity:0; transform: translateY(10px)} to{opacity:1; transform: translateY(0)} }
-
-    .fadeOut{ animation: fadeOut .28s var(--ease) both; }
+    .fadeOut{ animation: fadeOut .30s var(--ease) both; }
     @keyframes fadeOut{ from{opacity:1} to{opacity:0; transform: translateY(6px)} }
 
     @media (prefers-reduced-motion: reduce){
       .grain::before{animation:none}
       .btn{transition:none}
-      .thumb img{transition:none}
-      .fadeIn,.fadeOut,.fadeInUp,.fadeOutDown{animation:none}
+      .fadeIn,.fadeOut,.in,.out{animation:none}
+      .thumb,.cell,.polaroid{transition:none}
+      .bokeh span{animation:none}
+    }
+
+    /* If no gallery found: subtle note */
+    .tinyNote{
+      margin: 10px 0 0 0;
+      color: rgba(255,255,255,.46);
+      font-size: 12px;
+      line-height:1.6;
     }
   </style>
 </head>
 
 <body class="grain">
+  <div class="bokeh" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
   <div class="wrap">
     <div class="card" role="group" aria-label="Kado digital">
       <div class="topbar">
         <div class="brand">
           <span class="dot"></span>
-          <span id="brandText">for you</span>
+          <span id="brandText">for annisa</span>
         </div>
 
         <div class="controls">
-          <!-- NO COPY BUTTON (removed) -->
           <button class="btn" id="muteBtn" aria-pressed="false" title="Mute / Unmute" style="display:none;">Mute</button>
         </div>
       </div>
 
       <div class="content">
-        <div class="hero fadeIn" id="heroBox">
-          <img id="heroImg" src="" alt="Foto kita" />
-          <div class="heroMeta">
-            <p class="heroTitle" id="heroTitle">For you</p>
-            <div class="heroDate" id="heroDate"></div>
+        <div class="grid">
+          <!-- LEFT: LETTER -->
+          <div class="panel">
+            <p class="kicker" id="kicker">valentine</p>
+
+            <div class="swap" id="swapBox">
+              <h1 id="title" class="in"></h1>
+              <p id="body" class="body in"></p>
+              <p class="tinyNote" id="galleryNote" style="display:none;"></p>
+            </div>
+
+            <div class="footer">
+              <div class="pager" id="pager"></div>
+              <div class="nav">
+                <button class="btn" id="prevBtn">Back</button>
+                <button class="btn" id="nextBtn">Next</button>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="panel">
-          <p class="kicker" id="kicker">a small note</p>
+          <!-- RIGHT: PHOTOS -->
+          <div class="photoArea">
+            <div class="hero fadeIn" id="heroBox">
+              <img id="heroImg" src="" alt="Cover" />
+              <div class="heroMeta">
+                <p class="heroTitle" id="heroTitle">Annisa Rahmasari</p>
+                <div class="heroSub" id="heroSub">from Uni From Bandung</div>
+              </div>
+            </div>
 
-          <div class="swap" id="swapBox">
-            <h1 id="title" class="fadeInUp"></h1>
-            <p id="body" class="body fadeInUp"></p>
-          </div>
+            <div class="stack" id="stackBox" aria-label="Photo stack"></div>
 
-          <div class="footer">
-            <div class="pager" id="pager"></div>
-            <div class="nav">
-              <button class="btn" id="prevBtn">Back</button>
-              <button class="btn" id="nextBtn">Next</button>
+            <div class="strip" id="stripBox" style="display:none;">
+              <div class="stripTop">
+                <p class="stripTitle">moments</p>
+                <p class="stripHint">tap photo</p>
+              </div>
+              <div class="film" id="film"></div>
             </div>
           </div>
         </div>
 
+        <!-- FULL GALLERY GRID -->
         <div class="galleryWrap" id="galleryWrap" style="display:none;">
-          <p class="galleryTitle">moments</p>
+          <p class="galleryTitle">gallery</p>
           <div class="gallery" id="gallery"></div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Lightbox -->
   <div class="lightbox" id="lightbox" aria-hidden="true">
     <div class="lightboxInner">
-      <button class="btn lightboxClose" id="lightboxClose">Close</button>
+      <div class="lbTop">
+        <div class="lbTag">Annisa × Uni</div>
+        <button class="btn lbClose" id="lightboxClose">Close</button>
+      </div>
       <img id="lightboxImg" src="" alt="Foto" />
     </div>
   </div>
 
+  <!-- Cover -->
   <div class="cover" id="cover">
     <div class="coverCard fadeIn">
       <div class="coverHero" id="coverHero">
         <img id="coverImg" src="" alt="Cover" />
         <div class="coverText">
           <p class="coverKicker" id="coverKicker">valentine note</p>
-          <h2 class="coverTitle" id="coverTitle">For you.</h2>
+          <h2 class="coverTitle" id="coverTitle">For Annisa Rahmasari.</h2>
         </div>
       </div>
       <div class="coverBottom">
-        <div class="coverNote" id="coverNote">Tap “Open”.</div>
+        <div class="coverNote" id="coverNote">
+          Hal kecil, tapi tulus.<br/>Tap “Open” — audio akan mulai otomatis.
+        </div>
         <button class="btn" id="openBtn">Open</button>
       </div>
     </div>
@@ -484,67 +681,65 @@
 
   <script>
     // =========================
-    // CONFIG — EDIT INI AJA
+    // FIXED NAMES (as requested)
     // =========================
     const CONFIG = {
       recipient: "Annisa Rahmasari",
-      sender: "Uni Bandung",
+      sender: "Uni From Bandung",
       dateText: "14 February",
-
-      // Kamu boleh biarkan ini default.
-      // Kalau cover kamu beda ekstensi/nama, kode akan auto-cari kandidat lain.
       heroImage: "assets/cover.jpg",
 
-      // Optional gallery (boleh kosong [])
+      // You can still manually list if you want, but auto-detect will work even if empty:
       galleryImages: [
-        "assets/1.jpg",
-        "assets/2.jpg",
-        "assets/3.jpg",
+        // "assets/1.jpg",
+        // "assets/2.jpg",
       ],
 
       pages: [
         {
           kicker: "valentine",
-          title: c => `Happy Valentine, ${c.recipient}.`,
+          title: c => `${c.recipient},`,
           body:
-`Bukan tentang hal besar.
-Cuma pengingat kecil: kamu dicintai, dihargai, dan didukung—hari ini, besok, dan seterusnya.`
+`Aku bikin halaman kecil ini buat kamu.
+Bukan supaya heboh—tapi supaya kamu tahu:
+aku ada, aku lihat usahamu, dan aku bangga.`
         },
         {
           kicker: "new chapter",
-          title: () => `Aku bangga sama kamu.`,
+          title: () => `Tentang seminar proposal.`,
           body:
-`Seminar proposal itu bukan garis finis—itu tanda kamu berani mulai.
-Kalau ada hari yang terasa berat, ingat: kamu sudah membangun fondasi yang kuat.
+`Selamat ya.
+Itu bukan sekadar presentasi—itu tanda kamu berani mulai.
 
-Pelan tapi pasti.
-Satu langkah lagi, lalu satu lagi.`
+Kalau besok ada revisi, capek, atau pikiran ramai:
+kamu tetap orang yang sama—yang konsisten jalan pelan-pelan tapi pasti.`
         },
         {
-          kicker: "our why",
-          title: () => `Ingat tujuan awal kita.`,
+          kicker: "steady",
+          title: () => `Keep going.`,
           body:
-`Kita sudah jalan jauh—dengan cara kita sendiri.
-Kalau nanti rame, sibuk, atau banyak suara, kita balik ke tujuan awal:
-tumbuh bareng, saling jaga, dan selalu jujur.
+`Langkah awal itu sering terasa sunyi.
+Tapi justru di situ kamu sedang membangun sesuatu yang besar—diam-diam, rapi, dan matang.
 
-Yang kita butuh cuma rasa aman—dibangun dari komunikasi yang jelas dan pilihan yang sama: kita.`
+Aku akan tetap jadi tempat pulang yang tenang.
+Tanpa tekanan. Tanpa drama.`
         },
         {
-          kicker: "boundaries",
-          title: () => `Kita jaga ruang ini.`,
+          kicker: "us",
+          title: () => `Kita jaga yang sederhana.`,
           body:
-`Aku pengin hubungan kita tetap sederhana dan tenang.
-Jadi yuk sama-sama jaga batas, jaga kepercayaan, dan jangan biarkan distraksi kecil jadi jarak.
+`Kita sudah jalan jauh dengan cara kita sendiri.
+Dan aku ingin ruang ini tetap bersih: jujur, jelas, dan saling pilih.
 
-Kalau ada yang mengganggu, kita bahas baik-baik—bukan dipendam.`
+Bukan karena posesif—tapi karena komitmen itu dirawat.
+Lewat batas yang sehat, komunikasi yang rapi, dan rasa saling hormat.`
         },
         {
           kicker: "always",
-          title: () => `Terima kasih…`,
+          title: () => `Terima kasih, ya.`,
           body: c =>
-`…sudah mau melangkah bareng aku.
-Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
+`Terima kasih sudah bertahan, bertumbuh, dan tetap baik.
+Aku sayang kamu—dengan cara yang tenang.
 
 — ${c.sender}`
         }
@@ -552,14 +747,17 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
     };
 
     // =========================
-    // HELPERS
+    // ELEMENTS
     // =========================
     const $ = (id) => document.getElementById(id);
+
     const brandText = $("brandText");
-    const heroImg = $("heroImg");
+    const muteBtn = $("muteBtn");
+
     const heroBox = $("heroBox");
+    const heroImg = $("heroImg");
     const heroTitle = $("heroTitle");
-    const heroDate = $("heroDate");
+    const heroSub = $("heroSub");
 
     const kickerEl = $("kicker");
     const titleEl  = $("title");
@@ -569,6 +767,10 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
     const pagerEl = $("pager");
     const prevBtn = $("prevBtn");
     const nextBtn = $("nextBtn");
+
+    const stackBox = $("stackBox");
+    const stripBox = $("stripBox");
+    const filmEl = $("film");
 
     const galleryWrap = $("galleryWrap");
     const galleryEl = $("gallery");
@@ -580,16 +782,18 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
     const cover = $("cover");
     const openBtn = $("openBtn");
     const coverImg = $("coverImg");
-    const coverTitle = $("coverTitle");
-    const coverKicker = $("coverKicker");
-    const coverNote = $("coverNote");
 
-    const muteBtn = $("muteBtn");
+    const galleryNote = $("galleryNote");
 
     let idx = 0;
+    let resolvedCover = null;
+    let discoveredGallery = [];
 
     function safeText(v){ return (typeof v === "function") ? v(CONFIG) : v; }
 
+    // =========================
+    // IMAGE LOADING + AUTO DISCOVER
+    // =========================
     async function tryLoad(src){
       return new Promise((resolve) => {
         const im = new Image();
@@ -599,23 +803,22 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
       });
     }
 
-    // auto-fix path issues (case/extension variants)
-    async function resolveHeroImage(){
+    async function resolveCoverImage(){
       const base = CONFIG.heroImage || "assets/cover.jpg";
       const candidates = [
-        base,
-        "./" + base,
+        base, "./"+base,
         "assets/cover.jpg","./assets/cover.jpg",
         "assets/cover.jpeg","./assets/cover.jpeg",
         "assets/cover.png","./assets/cover.png",
+        "assets/cover.webp","./assets/cover.webp",
         "assets/cover.JPG","./assets/cover.JPG",
         "assets/Cover.jpg","./assets/Cover.jpg",
         "assets/Cover.JPG","./assets/Cover.JPG",
         "cover.jpg","./cover.jpg",
         "cover.jpeg","./cover.jpeg",
         "cover.png","./cover.png",
+        "cover.webp","./cover.webp",
       ];
-
       for(const c of candidates){
         const ok = await tryLoad(c);
         if(ok) return ok;
@@ -623,6 +826,65 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
       return null;
     }
 
+    async function discoverGalleryImages(){
+      // Start with any manual list
+      const manual = (CONFIG.galleryImages || []).filter(Boolean);
+
+      // Auto candidates: assets/1..20 with common extensions & casing
+      const bases = [];
+      for(let i=1;i<=20;i++){
+        bases.push(String(i));
+        if(i<10) bases.push("0"+i);
+      }
+      const exts = ["jpg","jpeg","png","webp","JPG","JPEG","PNG","WEBP"];
+
+      const found = [];
+      const seen = new Set();
+
+      // Include manual first
+      for(const m of manual){
+        if(!seen.has(m)){
+          const ok = await tryLoad(m);
+          if(ok){ found.push(ok); seen.add(ok); }
+        }
+      }
+
+      for(const b of bases){
+        for(const e of exts){
+          const p = `assets/${b}.${e}`;
+          if(seen.has(p)) continue;
+          const ok = await tryLoad(p);
+          if(ok){
+            found.push(ok);
+            seen.add(ok);
+            break; // move to next base number
+          }
+        }
+      }
+
+      return found;
+    }
+
+    // =========================
+    // LIGHTBOX
+    // =========================
+    function openLightbox(src){
+      lightboxImg.src = src;
+      lightbox.classList.add("show");
+      lightbox.setAttribute("aria-hidden","false");
+    }
+    function closeLightbox(){
+      lightbox.classList.remove("show");
+      lightbox.setAttribute("aria-hidden","true");
+      lightboxImg.src = "";
+    }
+    lightbox.addEventListener("click", (e) => { if(e.target === lightbox) closeLightbox(); });
+    lightboxClose.addEventListener("click", closeLightbox);
+    window.addEventListener("keydown", (e) => { if(e.key === "Escape") closeLightbox(); });
+
+    // =========================
+    // LETTER RENDER + TRANSITION
+    // =========================
     function renderPager(){
       pagerEl.innerHTML = "";
       for(let i=0;i<CONFIG.pages.length;i++){
@@ -632,74 +894,116 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
       }
     }
 
-    function swapTo(nextIndex){
-      // elegant out → in
-      titleEl.classList.remove("fadeInUp");
-      bodyEl.classList.remove("fadeInUp");
-      titleEl.classList.add("fadeOutDown");
-      bodyEl.classList.add("fadeOutDown");
-
-      setTimeout(() => {
-        idx = nextIndex;
-
-        const page = CONFIG.pages[idx];
-        kickerEl.textContent = safeText(page.kicker || "");
-        titleEl.textContent  = safeText(page.title);
-        bodyEl.textContent   = safeText(page.body);
-
-        prevBtn.disabled = idx === 0;
-        nextBtn.textContent = (idx === CONFIG.pages.length - 1) ? "Finish" : "Next";
-        renderPager();
-
-        titleEl.classList.remove("fadeOutDown");
-        bodyEl.classList.remove("fadeOutDown");
-        void swapBox.offsetWidth; // reflow
-        titleEl.classList.add("fadeInUp");
-        bodyEl.classList.add("fadeInUp");
-      }, 230);
+    function setSwapOut(){
+      titleEl.classList.remove("in");
+      bodyEl.classList.remove("in");
+      titleEl.classList.add("out");
+      bodyEl.classList.add("out");
     }
 
-    function initText(){
-      const page = CONFIG.pages[idx];
+    function setSwapIn(){
+      titleEl.classList.remove("out");
+      bodyEl.classList.remove("out");
+      void swapBox.offsetWidth; // reflow
+      titleEl.classList.add("in");
+      bodyEl.classList.add("in");
+    }
+
+    function applyPage(i){
+      const page = CONFIG.pages[i];
       kickerEl.textContent = safeText(page.kicker || "");
       titleEl.textContent  = safeText(page.title);
       bodyEl.textContent   = safeText(page.body);
-      prevBtn.disabled = true;
-      nextBtn.textContent = "Next";
+
+      prevBtn.disabled = i === 0;
+      nextBtn.textContent = (i === CONFIG.pages.length - 1) ? "Finish" : "Next";
       renderPager();
+
+      // Photo mood: rotate top polaroid on each page (subtle)
+      rotateTopPolaroid();
     }
 
-    prevBtn.addEventListener("click", () => {
-      if(idx > 0) swapTo(idx - 1);
-    });
+    function goTo(nextIndex){
+      setSwapOut();
+      setTimeout(() => {
+        idx = nextIndex;
+        applyPage(idx);
+        setSwapIn();
+      }, 220);
+    }
 
+    prevBtn.addEventListener("click", () => { if(idx>0) goTo(idx-1); });
     nextBtn.addEventListener("click", () => {
-      if(idx < CONFIG.pages.length - 1) swapTo(idx + 1);
-      else swapTo(0);
+      if(idx < CONFIG.pages.length-1) goTo(idx+1);
+      else goTo(0);
     });
 
     // =========================
-    // GALLERY
+    // PHOTO LAYOUT (stack + filmstrip + grid)
     // =========================
-    function openLightbox(src){
-      lightboxImg.src = src;
-      lightbox.classList.add("show");
-      lightbox.setAttribute("aria-hidden", "false");
-    }
-    function closeLightbox(){
-      lightbox.classList.remove("show");
-      lightbox.setAttribute("aria-hidden", "true");
-      lightboxImg.src = "";
-    }
-    lightbox.addEventListener("click", (e) => { if(e.target === lightbox) closeLightbox(); });
-    lightboxClose.addEventListener("click", closeLightbox);
-    window.addEventListener("keydown", (e) => { if(e.key === "Escape") closeLightbox(); });
+    function createPolaroid(src, cap, style){
+      const p = document.createElement("div");
+      p.className = "polaroid";
+      p.style.cssText = style;
 
-    function renderGallery(){
-      const imgs = (CONFIG.galleryImages || []).filter(Boolean);
-      if(!imgs.length){ galleryWrap.style.display = "none"; return; }
-      galleryWrap.style.display = "block";
-      galleryEl.innerHTML = "";
+      const im = document.createElement("img");
+      im.src = src;
+      im.alt = cap || "Moment";
+      p.appendChild(im);
+
+      const c = document.createElement("div");
+      c.className = "cap";
+      c.textContent = cap || "moment";
+      p.appendChild(c);
+
+      p.addEventListener("click", () => openLightbox(src));
+      return p;
+    }
+
+    function renderStack(){
+      stackBox.innerHTML = "";
+
+      const list = [resolvedCover, ...discoveredGallery].filter(Boolean);
+
+      // pick up to 3 for the stack (cover + 2 moments)
+      const a = list[0] || resolvedCover;
+      const b = list[1] || list[0] || resolvedCover;
+      const c = list[2] || list[1] || list[0] || resolvedCover;
+
+      const styles = [
+        "left:10%; top:18px; transform: rotate(-4deg); z-index:1;",
+        "left:30%; top:28px; transform: rotate(3deg); z-index:2;",
+        "left:18%; top:44px; transform: rotate(-1deg); z-index:3;",
+      ];
+
+      const p1 = createPolaroid(a, "annisa", styles[0]);
+      const p2 = createPolaroid(b, "us", styles[1]);
+      const p3 = createPolaroid(c, "valentine", styles[2]);
+
+      stackBox.appendChild(p1);
+      stackBox.appendChild(p2);
+      stackBox.appendChild(p3);
+    }
+
+    function rotateTopPolaroid(){
+      const items = stackBox.querySelectorAll(".polaroid");
+      if(!items.length) return;
+      // only nudge the top one a bit (very subtle)
+      const top = items[items.length - 1];
+      const base = top.style.transform || "rotate(-1deg)";
+      // random nudge -1.2..1.2 deg
+      const deg = (Math.random()*2.4 - 1.2).toFixed(2);
+      top.style.transform = `rotate(${deg}deg)`;
+    }
+
+    function renderFilmstrip(){
+      const imgs = discoveredGallery.slice(0, 14); // keep it clean
+      if(!imgs.length){
+        stripBox.style.display = "none";
+        return;
+      }
+      stripBox.style.display = "block";
+      filmEl.innerHTML = "";
       imgs.forEach((src) => {
         const t = document.createElement("div");
         t.className = "thumb";
@@ -708,21 +1012,41 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
         im.alt = "Moment";
         t.appendChild(im);
         t.addEventListener("click", () => openLightbox(src));
-        galleryEl.appendChild(t);
+        filmEl.appendChild(t);
+      });
+    }
+
+    function renderGrid(){
+      const imgs = discoveredGallery.slice(0, 24);
+      if(!imgs.length){
+        galleryWrap.style.display = "none";
+        return;
+      }
+      galleryWrap.style.display = "block";
+      galleryEl.innerHTML = "";
+      imgs.forEach((src) => {
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        const im = document.createElement("img");
+        im.src = src;
+        im.alt = "Moment";
+        cell.appendChild(im);
+        cell.addEventListener("click", () => openLightbox(src));
+        galleryEl.appendChild(cell);
       });
     }
 
     // =========================
-    // AMBIENCE AUDIO (auto start when user taps Open)
+    // AUDIO (auto starts after "Open")
     // =========================
-    let audioCtx = null, master = null, nodes = [];
+    let audioCtx = null, master = null;
     let muted = false;
 
     function startAmbience(){
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
       master = audioCtx.createGain();
-      master.gain.value = 0.0; // fade in later
+      master.gain.value = 0.0;
 
       const lp = audioCtx.createBiquadFilter();
       lp.type = "lowpass";
@@ -749,7 +1073,6 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
         g.gain.linearRampToValueAtTime(0.22 / (i+2), now + 1.8);
 
         o.start();
-        nodes.push(o, g);
       });
 
       // subtle noise bed
@@ -768,22 +1091,17 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
       noise.connect(ng);
       ng.connect(master);
       noise.start();
-      nodes.push(noise, ng);
 
-      // drift LFO
+      // slow drift LFO
       const lfo = audioCtx.createOscillator();
       lfo.frequency.value = 0.06;
       const lfoGain = audioCtx.createGain();
       lfoGain.gain.value = 4.8;
       lfo.connect(lfoGain);
 
-      nodes.forEach(n => {
-        if(n && n.frequency && typeof n.frequency.value === "number"){
-          lfoGain.connect(n.frequency);
-        }
-      });
+      // connect LFO to master filter for subtle movement
+      lfoGain.connect(lp.frequency);
       lfo.start();
-      nodes.push(lfo, lfoGain);
     }
 
     async function ensureAudio(){
@@ -794,59 +1112,72 @@ Aku ada di sisi kamu, dengan cara yang bikin kamu merasa aman.
     function setMuted(next){
       muted = next;
       if(!master) return;
-      master.gain.value = muted ? 0.0 : 0.055; // low + calm
+
+      const now = audioCtx.currentTime;
+      master.gain.cancelScheduledValues(now);
+      master.gain.setValueAtTime(master.gain.value, now);
+      master.gain.linearRampToValueAtTime(muted ? 0.0 : 0.055, now + 0.35);
+
       muteBtn.textContent = muted ? "Unmute" : "Mute";
       muteBtn.setAttribute("aria-pressed", String(muted));
     }
 
     muteBtn.addEventListener("click", () => setMuted(!muted));
 
+    document.addEventListener("visibilitychange", () => {
+      if(!audioCtx || !master) return;
+      const now = audioCtx.currentTime;
+      master.gain.cancelScheduledValues(now);
+      master.gain.setValueAtTime(master.gain.value, now);
+      master.gain.linearRampToValueAtTime(document.hidden ? 0.0 : (muted ? 0.0 : 0.055), now + 0.25);
+    });
+
     // =========================
-    // INIT UI
+    // INIT
     // =========================
     brandText.textContent = `for ${CONFIG.recipient.toLowerCase()}`;
-    heroTitle.textContent = `For ${CONFIG.recipient}`;
-    heroDate.textContent  = CONFIG.dateText;
+    heroTitle.textContent = CONFIG.recipient;
+    heroSub.textContent   = `from ${CONFIG.sender}`;
 
-    coverTitle.textContent = `For ${CONFIG.recipient}.`;
-    coverKicker.textContent = "valentine note";
-    coverNote.textContent = "Tap “Open” — pelan aja bacanya.";
-
-    renderGallery();
-    initText();
-
-    // Load hero image with fallback candidates
     (async () => {
-      const resolved = await resolveHeroImage();
-      if(!resolved){
+      resolvedCover = await resolveCoverImage();
+
+      if(!resolvedCover){
         heroBox.style.display = "none";
-        // keep cover (still works without image)
         $("coverHero").style.minHeight = "0px";
         coverImg.style.display = "none";
-        return;
+      }else{
+        heroImg.src = resolvedCover;
+        coverImg.src = resolvedCover;
       }
-      heroImg.src = resolved;
-      coverImg.src = resolved;
+
+      discoveredGallery = await discoverGalleryImages();
+
+      // If gallery still empty, show a tiny note (non-intrusive)
+      if(!discoveredGallery.length){
+        galleryNote.style.display = "block";
+        galleryNote.textContent =
+          "Catatan kecil: kalau foto lain belum muncul, pastikan namanya assets/1.jpg, assets/2.jpg, dst (huruf besar-kecil harus sama).";
+      }
+
+      renderStack();
+      renderFilmstrip();
+      renderGrid();
+
+      // initial page
+      applyPage(idx);
+      setSwapIn();
     })();
 
-    // Open gift → audio auto (no Sound button)
+    // Open gift (starts audio automatically here)
     openBtn.addEventListener("click", async () => {
-      // user gesture happens here → safe point to start audio
       await ensureAudio();
       muteBtn.style.display = "inline-block";
       setMuted(false);
 
       cover.classList.add("fadeOut");
-      setTimeout(() => { cover.style.display = "none"; }, 220);
-    });
-
-    // Pause audio if tab hidden (nice touch)
-    document.addEventListener("visibilitychange", () => {
-      if(!audioCtx || !master) return;
-      if(document.hidden){ master.gain.value = 0.0; }
-      else if(!muted){ master.gain.value = 0.055; }
+      setTimeout(() => { cover.style.display = "none"; }, 240);
     });
   </script>
 </body>
 </html>
-
